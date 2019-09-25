@@ -16,7 +16,7 @@ import org.firstinspires.ftc.robotcore.external.matrices.VectorF;
 
 
 @TeleOp(name="Manual", group="TeleOp")
-public class MecanumManual extends LinearOpMode {
+public class MecanumTeleop extends LinearOpMode {
 
     //protected Servo sideStick;
     protected DcMotor motorFrontLeft;
