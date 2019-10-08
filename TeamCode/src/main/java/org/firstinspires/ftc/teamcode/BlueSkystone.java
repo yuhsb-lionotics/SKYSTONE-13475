@@ -375,14 +375,41 @@ public class BlueSkystone extends LinearOpMode {
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation();
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values?
 
-                double xPosition = translation.get(0);
-                if (xPosition < -10) {
-                    positionSkystone = "left";
-                } else {
-                    positionSkystone = "center";
+
+//encoderDrive(1,10,10,10,10,10);
+
+                    double xPosition = translation.get(0) / mmPerInch;
+                    double yPosition = translation.get(1)/ mmPerInch;
+                    telemetry.addData("xPosition", xPosition);
+                    telemetry.update();
+                telemetry.addData("yPosition", yPosition);
+                telemetry.update();
+
+                //Change in X
+                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) {
+                    break;
                 }
+                else if ((xPosition <= -14.5)) {
+                    encoderDrive(1,-1,-1,-1,-1,3);
+                }
+                else if (xPosition >= -15.5){
+                    encoderDrive(1,1,1,1,1,3);
+                }
+
+                //Change in Y
+                if((yPosition <= -.5)&&(yPosition >= .5)) {
+                    break;
+                }
+                else if (yPosition <= -.5) {
+                    encoderDrive(1,1,-1,-1,1,3);
+                }
+                else if (yPosition >= .5){
+                    encoderDrive(1,-1,1,1,-1,3);
+                }
+
+
 
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
