@@ -391,23 +391,23 @@ public class BlueSkystone extends LinearOpMode {
                 if ((xPosition <= -14.5)&&(xPosition >= -15.5)) {
                     break;
                 }
-                else if ((xPosition <= -14.5)) {
+                else if ((xPosition < -14.5)) {
                     encoderDrive(1,-1,-1,-1,-1,3);
                 }
                 else if (xPosition >= -15.5){
                     encoderDrive(1,1,1,1,1,3);
                 }
-
-                //Change in Y
-                if((yPosition <= -.5)&&(yPosition >= .5)) {
-                    break;
-                }
-                else if (yPosition <= -.5) {
-                    encoderDrive(1,1,-1,-1,1,3);
-                }
-                else if (yPosition >= .5){
-                    encoderDrive(1,-1,1,1,-1,3);
-                }
+//
+//                //Change in Y
+//                if((yPosition <= -.5)&&(yPosition >= .5)) {
+//                    break;
+//                }
+//                else if (yPosition <= -.5) {
+//                    encoderDrive(1,1,-1,-1,1,3);
+//                }
+//                else if (yPosition >= .5){
+//                    encoderDrive(1,-1,1,1,-1,3);
+//                }
 
 
 
