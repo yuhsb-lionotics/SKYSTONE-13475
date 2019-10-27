@@ -373,53 +373,92 @@ public class BlueSkystone extends LinearOpMode {
             String positionSkystone = "";
             if (targetVisible) {
                 // express position (translation) of robot in inches.
-                VectorF translation = lastLocation.getTranslation();
+                VectorF translation = lastLocation.getTranslation(); /*
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values?
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
 
 
 //encoderDrive(1,10,10,10,10,10);
 
                     double xPosition = translation.get(0) / mmPerInch;
                     double yPosition = translation.get(1)/ mmPerInch;
-                    telemetry.addData("xPosition", xPosition);
-                    telemetry.update();
-                telemetry.addData("yPosition", yPosition);
-                telemetry.update();
+//                    telemetry.addData("xPosition", xPosition);
+//                    telemetry.update();
+//                    telemetry.addData("yPosition", yPosition);
+//                    telemetry.update();
 
                 //Change in X
-                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) {
-                    break;
+                /*
+                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
+                    telemetry.addData("no motion",0);
+                    telemetry.update();
+
                 }
-                else if ((xPosition < -14.5)) {
-                    encoderDrive(1,-1,-1,-1,-1,3);
-                }
-                else if (xPosition >= -15.5){
+                else if ((xPosition < -14.5)) { //too close
                     encoderDrive(1,1,1,1,1,3);
+                    telemetry.addData("move foward",0);
+                    telemetry.update();
                 }
+                else if (xPosition >= -15.5){  //too far
+                    encoderDrive(1,-1,-1,-1,-1,3);
+                    telemetry.addData("move backward",0);
+                    telemetry.update();
+                }
+                */
+                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
+                    telemetry.addData("no motion",0);
+                    telemetry.update();
+
+                } else {
+                    double xDistanceRide = xPosition + 15;
+                    encoderDrive(1, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
+                }
+
+
+
+
+                //Change in Y
+                double yDistanceRide = yPosition;
+                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
+                    telemetry.addData("no motion",1);
+                    telemetry.update();
+                }
+
+                else if (yPosition <= -.5) { //move left
+                   // encoderDrive(1,-1,1,1,-1,3);
+                    encoderDrive(1, -yDistanceRide, yDistanceRide, yDistanceRide, -yDistanceRide, 5);
+                    telemetry.addData("move left",1);
+                    telemetry.update();
+                }
+                else if (yPosition > .5){ // move right
+                   // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    telemetry.addData("move right",1);
+                    telemetry.update();
+                }
+
 //
-//                //Change in Y
-//                if((yPosition <= -.5)&&(yPosition >= .5)) {
-//                    break;
+//                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
+//                    telemetry.addData("no motion",1);
+//                    telemetry.update();
+//                } else {
+//
+//                    encoderDrive(1, yDistanceRide, yDistanceRide, yDistanceRide, yDistanceRide, 1);
 //                }
-//                else if (yPosition <= -.5) {
-//                    encoderDrive(1,1,-1,-1,1,3);
-//                }
-//                else if (yPosition >= .5){
-//                    encoderDrive(1,-1,1,1,-1,3);
-//                }
+
+
 
 
 
                 // express the rotation of the robot in degrees.
-                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            } else {
+               // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+               // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+            } /*else {
                 positionSkystone = "right";
                 telemetry.addData("Visible Target", "none");
-            }
-            telemetry.addData("Skystone Position", positionSkystone);
-            telemetry.update();
+            }*/
+            //telemetry.addData("Skystone Position", positionSkystone);
+            //telemetry.update();
         }
 
         // Disable Tracking when we are done;
@@ -468,13 +507,13 @@ public class BlueSkystone extends LinearOpMode {
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFLTarget = FR.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
-            newFRTarget = FL.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
+            newFLTarget = FL.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
+            newFRTarget = FR.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
             newBLTarget = BL.getCurrentPosition() + (int) (BLin * COUNTS_PER_INCH);
             newBRTarget = BR.getCurrentPosition() + (int) (BRin * COUNTS_PER_INCH);
 
-            FR.setTargetPosition(newFLTarget);
-            FL.setTargetPosition(newFRTarget);
+            FR.setTargetPosition(newFRTarget);
+            FL.setTargetPosition(newFLTarget);
             BL.setTargetPosition(newBLTarget);
             BR.setTargetPosition(newBRTarget);
 
