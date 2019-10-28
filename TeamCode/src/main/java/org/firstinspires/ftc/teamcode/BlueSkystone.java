@@ -426,7 +426,7 @@ public class BlueSkystone extends LinearOpMode {
 
                 else if (yPosition <= -.5) { //move left
                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, -yDistanceRide, yDistanceRide, yDistanceRide, -yDistanceRide, 5);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
                     telemetry.addData("move left",1);
                     telemetry.update();
                 }
