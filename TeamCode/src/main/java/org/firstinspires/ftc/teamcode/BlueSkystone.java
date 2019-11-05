@@ -99,6 +99,8 @@ public class BlueSkystone extends LinearOpMode {
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private Servo grabber1=null;
+    private Servo grabber2=null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -470,12 +472,16 @@ public class BlueSkystone extends LinearOpMode {
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
-        //flippy= hardwareMap.servo.get("flippy_flipper");
+        grabber1= hardwareMap.servo.get("grabber1");
+        grabber2= hardwareMap.servo.get("grabber2");
+
 
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         BR.setDirection(DcMotor.Direction.FORWARD);
+        grabber1.setDirection(Servo.Direction.FORWARD);
+        grabber2.setDirection(Servo.Direction.REVERSE);
 
 
         // Send telemetry message to signify robot waiting;
