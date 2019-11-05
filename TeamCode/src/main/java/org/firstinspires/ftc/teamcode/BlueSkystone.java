@@ -101,6 +101,7 @@ public class BlueSkystone extends LinearOpMode {
     private DcMotor BR = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
+    private Servo grabberTilt = null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -379,11 +380,37 @@ public class BlueSkystone extends LinearOpMode {
             }
             //rotate and grab
             encoderDrive(1,-6,6,-6,6,3);//rotate left
+            grabberTilt.setPosition(0);//down
             encoderDrive(1,6,-6,-6,6,3);//strafe right
+
             grabber1.setPosition(.5);
-            grabber1.setPosition(.5);
+            grabber2.setPosition(.5);
+            grabberTilt.setPosition(.2);//lift up block
             encoderDrive(1,-12,12,12,-12,3);//strafe right
-            encoderDrive(1,40,40,40,40,5);//move forward 18" to left hand sampling
+            encoderDrive(1,40,40,40,40,5);//move forward to other side of the field
+            grabber1.setPosition(1);//release the block
+            grabber2.setPosition(1);
+            grabberTilt.setPosition(.5);//raise grabber
+            encoderDrive(1,-55,-55,-55,-55,3);//return to sampling
+            encoderDrive(1,6,-6,6,-6,3);//rotate right
+            if (targetVisible) {
+                align();
+            }
+            encoderDrive(1,-6,6,-6,6,3);//rotate left
+
+            grabberTilt.setPosition(0);//lower arm
+            encoderDrive(1,6,-6,-6,6,3);//strafe right
+
+            grabber1.setPosition(.5);//grab the block
+            grabber2.setPosition(.5);
+            grabberTilt.setPosition(.2);//raise block
+            encoderDrive(1,-12,12,12,-12,3);//strafe right
+            encoderDrive(1,5,55,55,55,5);//move forward to other side of the field
+            grabber1.setPosition(1);//release the block
+            grabber2.setPosition(1);
+            grabberTilt.setPosition(1);
+
+
 
 
         }
@@ -461,6 +488,7 @@ public class BlueSkystone extends LinearOpMode {
         BL = hardwareMap.get(DcMotor.class, "bl");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
+        grabberTilt = hardwareMap.servo.get("grabber_tilt");
 
 
         FR.setDirection(DcMotor.Direction.FORWARD);
@@ -469,6 +497,7 @@ public class BlueSkystone extends LinearOpMode {
         BR.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
+        grabberTilt.setDirection(Servo.Direction.FORWARD);
 
 
         // Send telemetry message to signify robot waiting;
