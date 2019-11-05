@@ -371,101 +371,88 @@ public class BlueSkystone extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
-            String positionSkystone = "";
+
+            //starting position
+            encoderDrive(1,18,18,18,18,3);//move forward 18" to left hand sampling
             if (targetVisible) {
-                // express position (translation) of robot in inches.
-                VectorF translation = lastLocation.getTranslation(); /*
+                align();
+            }
+            //rotate and grab
+            encoderDrive(1,-6,6,-6,6,3);//rotate left
+            encoderDrive(1,6,-6,-6,6,3);//strafe right
+            grabber1.setPosition(.5);
+            grabber1.setPosition(.5);
+            encoderDrive(1,-12,12,12,-12,3);//strafe right
+            encoderDrive(1,40,40,40,40,5);//move forward 18" to left hand sampling
+
+
+        }
+
+        // Disable Tracking when we are done;
+        targetsSkyStone.deactivate();
+    }
+
+    private void align() {
+        boolean isXPosGood=false;
+        boolean isYPosGood=false;
+        while(!(isXPosGood)||!(isYPosGood)){
+            // express position (translation) of robot in inches
+        VectorF translation = lastLocation.getTranslation(); /*
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                         translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
 
 
 //encoderDrive(1,10,10,10,10,10);
 
-                    double xPosition = translation.get(0) / mmPerInch;
-                    double yPosition = translation.get(1)/ mmPerInch;
+        double xPosition = translation.get(0) / mmPerInch;
+        double yPosition = translation.get(1) / mmPerInch;
+
 //                    telemetry.addData("xPosition", xPosition);
 //                    telemetry.update();
 //                    telemetry.addData("yPosition", yPosition);
 //                    telemetry.update();
 
-                //Change in X
-                /*
-                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
-                    telemetry.addData("no motion",0);
-                    telemetry.update();
+        //Change in X
 
-                }
-                else if ((xPosition < -14.5)) { //too close
-                    encoderDrive(1,1,1,1,1,3);
-                    telemetry.addData("move foward",0);
-                    telemetry.update();
-                }
-                else if (xPosition >= -15.5){  //too far
-                    encoderDrive(1,-1,-1,-1,-1,3);
-                    telemetry.addData("move backward",0);
-                    telemetry.update();
-                }
-                */
-                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
-                    telemetry.addData("no motion",0);
-                    telemetry.update();
-
-                } else {
-                    double xDistanceRide = xPosition + 15;
-                    encoderDrive(1, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
-                }
+        if ((xPosition <= -14.5) && (xPosition >= -15.5)) { //middle
+            telemetry.addData("no motion", 0);
+            telemetry.update();
+            isXPosGood = true;
 
 
-
-
-                //Change in Y
-                double yDistanceRide = yPosition;
-                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
-                    telemetry.addData("no motion",1);
-                    telemetry.update();
-                }
-
-                else if (yPosition <= -.5) { //move left
-                   // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
-                    telemetry.addData("move left",1);
-                    telemetry.update();
-                }
-                else if (yPosition > .5){ // move right
-                   // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
-                    telemetry.addData("move right",1);
-                    telemetry.update();
-                }
-
-//
-//                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
-//                    telemetry.addData("no motion",1);
-//                    telemetry.update();
-//                } else {
-//
-//                    encoderDrive(1, yDistanceRide, yDistanceRide, yDistanceRide, yDistanceRide, 1);
-//                }
-
-
-
-
-
-                // express the rotation of the robot in degrees.
-               // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-               // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            } /*else {
-                positionSkystone = "right";
-                telemetry.addData("Visible Target", "none");
-            }*/
-            //telemetry.addData("Skystone Position", positionSkystone);
-            //telemetry.update();
+        } else {
+            double xDistanceRide = xPosition + 15;
+            encoderDrive(1, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
         }
 
-        // Disable Tracking when we are done;
-        targetsSkyStone.deactivate();
+
+        //Change in Y
+        double yDistanceRide = yPosition;
+        if ((yPosition <= -.5) && (yPosition >= .5)) { //no motion
+            telemetry.addData("no motion", 1);
+            telemetry.update();
+            isYPosGood = true;
+        } else if (yPosition <= -.5) { //move left
+            // encoderDrive(1,1,-1,-1,1,3);
+            encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+            telemetry.addData("move left", 1);
+            telemetry.update();
+        } else if (yPosition > .5) { // move right
+            // encoderDrive(1,1,-1,-1,1,3);
+            encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+            telemetry.addData("move right", 1);
+            telemetry.update();
+        }
+
+        // express the rotation of the robot in degrees.
+        // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+        // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
     }
+        isXPosGood = false;
+        isYPosGood = false;
+    }
+
 
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
