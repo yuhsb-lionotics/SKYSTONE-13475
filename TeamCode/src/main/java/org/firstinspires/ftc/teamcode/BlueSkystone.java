@@ -58,7 +58,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 
 /**
  *
- * Created (- VuForia) by Zack 9/23/19
+ * Created (- VuForia) by Zack 9/23/19 for Lionotics_2 13475 for FIRST Tech Challenge season 2019-2020
  *
  *
  * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
