@@ -102,6 +102,8 @@ public class RedSkystone extends LinearOpMode {
     private Servo grabber1=null;
     private Servo grabber2=null;
     private Servo grabberTilt = null;
+    boolean isXPosGood = false;
+    boolean isYPosGood = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -349,6 +351,8 @@ public class RedSkystone extends LinearOpMode {
 
         targetsSkyStone.activate();
         while (!isStopRequested()) {
+            encoderDrive(.5,10,10,10,10,3);//move forward 18" to left hand sampling
+
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -375,25 +379,13 @@ public class RedSkystone extends LinearOpMode {
             }
 
 
-            //starting position
-            encoderDrive(.5,10,10,10,10,3);//move forward 18" to left hand sampling
-
-
 
             //sleep(2000);
 
-            telemetry.addData("visible?",targetVisible);
-            telemetry.update();
-            sleep(1000);
+
             //--------------------------------------------------------------------------------------------------------------------------------------------------------
            if(targetVisible) {
-               telemetry.addData("aligning",0);
-               telemetry.update();
-               boolean isXPosGood = false;
-               boolean isYPosGood = false;
-                   while ((!isYPosGood)||(!isXPosGood)){
-               telemetry.addData("aligning", 1);
-               telemetry.update();
+
                // express position (translation) of robot in inches
                VectorF translation = lastLocation.getTranslation(); /*
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
@@ -453,7 +445,7 @@ public class RedSkystone extends LinearOpMode {
 
                isXPosGood = false;
                isYPosGood = false;
-           }
+
             //============================================================================================================================================================
             //align();
 
@@ -473,7 +465,7 @@ public class RedSkystone extends LinearOpMode {
             grabberTilt.setPosition(.8);//raise grabber
             encoderDrive(.5,55,55,55,55,5);//return to sampling
             encoderDrive(.5,19,-19,19,-19,3);//rotate right
-            align();
+            //align();
             if (targetVisible) {
                 align();
 
@@ -599,6 +591,8 @@ public class RedSkystone extends LinearOpMode {
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         grabberTilt.setPosition(.9);
+        grabber1.setPosition(0);
+        grabber2.setPosition(0);
 
 
     }
