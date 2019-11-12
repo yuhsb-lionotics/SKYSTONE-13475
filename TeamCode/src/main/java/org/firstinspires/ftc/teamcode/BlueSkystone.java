@@ -94,13 +94,15 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="SKYSTONE Blue", group ="Autonomous")
 public class BlueSkystone extends LinearOpMode {
 
-    //The following are addition made by your's truly:
+    //The following are addition made by yours truly:
     private DcMotor FR = null;
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
+    public Servo grabberTilt=null;
+    int jerry=0;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -346,8 +348,13 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
+        encoderDrive(1,13,13,13,13,3);//move forward 18" to left hand sampling
+
         targetsSkyStone.activate();
+
         while (!isStopRequested()) {
+            boolean isYgood = false;
+            boolean isXgood = false;
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -380,7 +387,6 @@ public class BlueSkystone extends LinearOpMode {
                         translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
 
 
-//encoderDrive(1,10,10,10,10,10);
 
                     double xPosition = translation.get(0) / mmPerInch;
                     double yPosition = translation.get(1)/ mmPerInch;
@@ -390,30 +396,16 @@ public class BlueSkystone extends LinearOpMode {
 //                    telemetry.update();
 
                 //Change in X
-                /*
-                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
-                    telemetry.addData("no motion",0);
-                    telemetry.update();
 
-                }
-                else if ((xPosition < -14.5)) { //too close
-                    encoderDrive(1,1,1,1,1,3);
-                    telemetry.addData("move foward",0);
-                    telemetry.update();
-                }
-                else if (xPosition >= -15.5){  //too far
-                    encoderDrive(1,-1,-1,-1,-1,3);
-                    telemetry.addData("move backward",0);
-                    telemetry.update();
-                }
-                */
                 if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
                     telemetry.addData("no motion",0);
                     telemetry.update();
+                    isXgood=true;
+
 
                 } else {
                     double xDistanceRide = xPosition + 15;
-                    encoderDrive(1, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
+                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
                 }
 
 
@@ -424,17 +416,21 @@ public class BlueSkystone extends LinearOpMode {
                 if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
                     telemetry.addData("no motion",1);
                     telemetry.update();
+                    isYgood=true;
+
+
+
                 }
 
                 else if (yPosition <= -.5) { //move left
                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    encoderDrive(.7, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
                     telemetry.addData("move left",1);
                     telemetry.update();
                 }
                 else if (yPosition > .5){ // move right
                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    encoderDrive(.7, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
                     telemetry.addData("move right",1);
                     telemetry.update();
                 }
@@ -455,18 +451,76 @@ public class BlueSkystone extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            } /*else {
+            }
+            jerry = jerry +1;
+            if(jerry==40000) {
+                telemetry.addData("out of loop", 0);
+                telemetry.update();
+                encoderDrive(.5, -19, 19, -19, 19, 5);
+                encoderDrive(.5, -2, -2, -2, -2, 5);
+                grabberTilt.setPosition(.1);//down
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
+                encoderDrive(.5,13,-13,-13,13,5);//strafe right
+
+                grabber1.setPosition(.4);
+                grabber2.setPosition(.4);
+                sleep(100);
+                grabberTilt.setPosition(.5);//lift up block
+                encoderDrive(.5,-12,12,12,-12,3);//strafe left
+                encoderDrive(1,50,50,50,50,5);
+                grabberTilt.setPosition(.1);//down
+                sleep(500);
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
+                grabberTilt.setPosition(.6);//up
+                sleep(200);
+                encoderDrive(1,-75,-75,-75,-75,5);
+                encoderDrive(.5, 19, -19, 19, -19, 5);
+                encoderDrive(1,-10 ,-10,-10,-10,4);
+            }
+            if(jerry==40001){
+                encoderDrive(.5, -19, 19, -19, 19, 5);
+                encoderDrive(.5, -2, -2, -2, -2, 5);
+                grabberTilt.setPosition(.1);//down
+                grabber1.setPosition(.7);
+                grabber2.setPosition(.7);
+                encoderDrive(.7 ,13,-13,-13,13,5);//strafe right
+
+                grabber1.setPosition(.4);
+                grabber2.setPosition(.4);
+                sleep(100);
+                grabberTilt.setPosition(.5);//lift up block
+                sleep(100);
+                encoderDrive(.5,-12,12,12,-12,3);//strafe left
+                encoderDrive(1,80,80,80,80,5);
+                grabberTilt.setPosition(.1);
+                grabber1.setPosition(.7);
+                grabber2.setPosition(.7);
+                encoderDrive(1,-12,-12,-12,-12,3);//strafe left
+                encoderDrive(1, -80, 80, -80, 80, 5);
+            }
+            /*else {
                 positionSkystone = "right";
                 telemetry.addData("Visible Target", "none");
             }*/
             //telemetry.addData("Skystone Position", positionSkystone);
             //telemetry.update();
+
         }
 
+        telemetry.addData("out of loop",1);
+        telemetry.update();
+
         // Disable Tracking when we are done;
-        targetsSkyStone.deactivate();
+        //targetsSkyStone.deactivate();
+
+        encoderDrive(.5,-19,19,-19,19,5);//rotate left
     }
 
+    private void align(){
+
+    }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
@@ -474,6 +528,8 @@ public class BlueSkystone extends LinearOpMode {
         BL = hardwareMap.get(DcMotor.class, "bl");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
+        grabberTilt= hardwareMap.servo.get("grabber_tilt");
+
 
 
         FR.setDirection(DcMotor.Direction.FORWARD);
@@ -497,6 +553,10 @@ public class BlueSkystone extends LinearOpMode {
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        grabberTilt.setPosition(.7);
+        grabber1.setPosition(0);
+        grabber2.setPosition(0);
 
 
     }

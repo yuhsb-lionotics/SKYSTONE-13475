@@ -23,6 +23,9 @@ public class MecanumTeleop extends LinearOpMode {
     protected DcMotor motorFrontRight;
     protected DcMotor motorBackLeft;
     protected DcMotor motorBackRight;
+    private Servo grabber1=null;
+    private Servo grabber2=null;
+    private Servo grabberTilt = null;
 
     MotorSpeeds speed;
 
@@ -62,7 +65,32 @@ public class MecanumTeleop extends LinearOpMode {
             } else {
                 speed.myStop();
             }
-        }}
+            if(gamepad1.x) {
+                grabber1.setPosition(.7);
+                grabber2.setPosition(.7);
+            }
+            if(gamepad1.b){
+                grabber1.setPosition(.4);
+                grabber2.setPosition(.4);
+            }
+            if(gamepad1.y){
+                grabberTilt.setPosition(.6);
+            }
+            if(gamepad1.a){
+                grabberTilt.setPosition(.1);
+            }
+            if(gamepad1.dpad_up){
+                grabberTilt.setPosition(7);
+            }
+
+
+        }
+
+
+
+
+
+    }
 
             private void hardwareSetup(){
                 //Servos
@@ -73,6 +101,17 @@ public class MecanumTeleop extends LinearOpMode {
                 motorFrontRight = hardwareMap.dcMotor.get("fr");
                 motorBackLeft = hardwareMap.dcMotor.get("bl");
                 motorBackRight = hardwareMap.dcMotor.get("br");
+
+                grabber1= hardwareMap.servo.get("grabber1");
+                grabber2= hardwareMap.servo.get("grabber2");
+                grabberTilt = hardwareMap.servo.get("grabber_tilt");
+                grabber1.setDirection(Servo.Direction.FORWARD);
+                grabber2.setDirection(Servo.Direction.REVERSE);
+                grabberTilt.setDirection(Servo.Direction.FORWARD);
+
+                grabberTilt.setPosition(.9);
+                grabber1.setPosition(0);
+                grabber2.setPosition(0);
 
             }
 
@@ -132,6 +171,7 @@ public class MecanumTeleop extends LinearOpMode {
                 speed.backLeft = speed.backLeft;
                 speed.backRight = speed.backRight;
                 speed.updateMotors();
+
 
 
 
