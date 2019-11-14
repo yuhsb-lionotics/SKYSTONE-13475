@@ -26,6 +26,9 @@ public class BlueFoundation extends LinearOpMode{
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private Servo grabber1=null;
+    private Servo grabber2=null;
+    public Servo grabberTilt=null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -56,7 +59,11 @@ public class BlueFoundation extends LinearOpMode{
  *
  */
 
-        //CODE GOES HERE:
+        //CODE GOES HERE- THANK YOU FOR THE INDICATION:
+        encoderDrive(1.0,85.0,85.0,85.0,85.0, 5.0);
+        encoderDrive(1.0, 30.0, -30.0,30.0, -30.0, 3.0);
+        encoderDrive(1.0, -55.0, -55.0, -55.0, -55.0, 5.0 );
+
 
     }
     private void setUp() {
@@ -64,6 +71,9 @@ public class BlueFoundation extends LinearOpMode{
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
+        grabber1 = hardwareMap.servo.get("grabber1");
+        grabber2 = hardwareMap.servo.get("grabber2");
+        grabberTilt = hardwareMap.servo.get("grabber_tilt");
         //flippy= hardwareMap.servo.get("flippy_flipper");
 
         FR.setDirection(DcMotor.Direction.FORWARD);

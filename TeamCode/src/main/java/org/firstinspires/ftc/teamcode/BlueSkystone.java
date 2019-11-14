@@ -479,7 +479,7 @@ public class BlueSkystone extends LinearOpMode {
                 encoderDrive(.5, 19, -19, 19, -19, 5);
                 encoderDrive(1,-10 ,-10,-10,-10,4);
             }
-            if(jerry==8000){
+            if(jerry==80000){
                 encoderDrive(.5, -19, 19, -19, 19, 5);
                 encoderDrive(1, -2, -2, -2, -2, 5);
                 grabberTilt.setPosition(.1);//down
