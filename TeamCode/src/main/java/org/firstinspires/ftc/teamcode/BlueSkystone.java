@@ -456,9 +456,9 @@ public class BlueSkystone extends LinearOpMode {
             if(jerry==40000) {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
+                grabberTilt.setPosition(.1);//down
                 encoderDrive(.5, -19, 19, -19, 19, 5);
                 encoderDrive(1, -2, -2, -2, -2, 5);
-                grabberTilt.setPosition(.1);//down
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(.7,13,-13,-13,13,5);//strafe right
@@ -466,15 +466,15 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
-                grabberTilt.setPosition(.5);//lift up block
+                grabberTilt.setPosition(.3);//lift up block
                 encoderDrive(.5,-12,12,12,-12,3);//strafe left
                 encoderDrive(1,60,60,60,60,5);
                 grabberTilt.setPosition(.1);//down
                 sleep(500);
+                grabberTilt.setPosition(.4);//up
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                grabberTilt.setPosition(.6);//up
-                sleep(200);
+
                 encoderDrive(1,-85,-85,-85,-85,5);
                 encoderDrive(.5, 19, -19, 19, -19, 5);
                 encoderDrive(1,-10 ,-10,-10,-10,4);
@@ -490,7 +490,7 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
-                grabberTilt.setPosition(.5);//lift up block
+                grabberTilt.setPosition(.4);//lift up block
                 sleep(100);
                 encoderDrive(.5,-12,12,12,-12,3);//strafe left
                 encoderDrive(1,90,90,90,90,5);
