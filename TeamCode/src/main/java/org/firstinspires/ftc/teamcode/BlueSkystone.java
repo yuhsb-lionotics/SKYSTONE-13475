@@ -397,7 +397,7 @@ public class BlueSkystone extends LinearOpMode {
 
                 //Change in X
 
-                if ((xPosition <= -14.5)&&(xPosition >= -15.5)) { //middle
+                if ((xPosition <= -11)&&(xPosition >= -18)) { //middle
                     telemetry.addData("no motion",0);
                     telemetry.update();
                     isXgood=true;
@@ -413,7 +413,7 @@ public class BlueSkystone extends LinearOpMode {
 
                 //Change in Y
                 double yDistanceRide = yPosition;
-                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
+                if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
                     telemetry.addData("no motion",1);
                     telemetry.update();
                     isYgood=true;
@@ -457,7 +457,7 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
                 grabberTilt.setPosition(.1);//down
-                encoderDrive(.5, -19, 19, -19, 19, 5);
+                encoderDrive(.5, -20, 20, -20, 20, 5);
                 encoderDrive(1, -2, -2, -2, -2, 5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
@@ -476,11 +476,11 @@ public class BlueSkystone extends LinearOpMode {
                 grabber2.setPosition(.6);
 
                 encoderDrive(1,-85,-85,-85,-85,5);
-                encoderDrive(.5, 19, -19, 19, -19, 5);
-                encoderDrive(1,-10 ,-10,-10,-10,4);
+                //encoderDrive(.5, 20, -20, 20, -20, 5);
+                //encoderDrive(1,-10 ,-10,-10,-10,4);
             }
-            if(jerry==80000){
-                encoderDrive(.5, -19, 19, -19, 19, 5);
+            if(jerry==40000){
+                encoderDrive(.5, -20, 20, -20, 20, 5);
                 encoderDrive(1, -2, -2, -2, -2, 5);
                 grabberTilt.setPosition(.1);//down
                 grabber1.setPosition(.7);
@@ -514,7 +514,7 @@ public class BlueSkystone extends LinearOpMode {
         // Disable Tracking when we are done;
         //targetsSkyStone.deactivate();
 
-        encoderDrive(.5,-19,19,-19,19,5);//rotate left
+        encoderDrive(.5,-20,20,-20,20,5);//rotate left
     }
 
     private void align(){
