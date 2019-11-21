@@ -457,46 +457,48 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
                 grabberTilt.setPosition(.1);//down
-                encoderDrive(.5, -20, 20, -20, 20, 5);
+                encoderDrive(1, -20, 20, -20, 20, 5);//was .5
                 encoderDrive(1, -2, -2, -2, -2, 5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(.7,13,-13,-13,13,5);//strafe right
+                encoderDrive(1,13,-13,-13,13,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
                 grabberTilt.setPosition(.3);//lift up block
-                encoderDrive(.5,-12,12,12,-12,3);//strafe left
+                encoderDrive(1,-12,12,12,-12,3);//strafe left was .5
                 encoderDrive(1,60,60,60,60,5);
                 grabberTilt.setPosition(.1);//down
-                sleep(500);
+                sleep(300);
                 grabberTilt.setPosition(.4);//up
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
+                grabber1.setPosition(1);
+                grabber2.setPosition(1);
 
                 encoderDrive(1,-85,-85,-85,-85,5);
-                //encoderDrive(.5, 20, -20, 20, -20, 5);
-                //encoderDrive(1,-10 ,-10,-10,-10,4);
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
+                encoderDrive(1, 20, -20, 20, -20, 5); //was .5
+
             }
-            if(jerry==40000){
-                encoderDrive(.5, -20, 20, -20, 20, 5);
+            if(jerry==60000){
+                encoderDrive(1, -20, 20, -20, 20, 5);//was .5
                 encoderDrive(1, -2, -2, -2, -2, 5);
                 grabberTilt.setPosition(.1);//down
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
-                encoderDrive(.7 ,13,-13,-13,13,5);//strafe right
+                encoderDrive(1 ,13,-13,-13,13,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
                 grabberTilt.setPosition(.4);//lift up block
                 sleep(100);
-                encoderDrive(.5,-12,12,12,-12,3);//strafe left
+                encoderDrive(1,-12,12,12,-12,3);//strafe left was .7
                 encoderDrive(1,90,90,90,90,5);
                 grabberTilt.setPosition(.1);
-                grabber1.setPosition(.7);
-                grabber2.setPosition(.7);
+                grabber1.setPosition(1);
+                grabber2.setPosition(1);
                 encoderDrive(1,-22,-22,-22,-22,3);//strafe left
             }
             /*else {
