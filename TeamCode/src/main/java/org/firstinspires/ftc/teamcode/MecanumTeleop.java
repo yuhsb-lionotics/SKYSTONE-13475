@@ -65,11 +65,11 @@ public class MecanumTeleop extends LinearOpMode {
             } else {
                 speed.myStop();
             }
-            if(gamepad1.x) {
+            if(gamepad1.b) {
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
             }
-            if(gamepad1.b){
+            if(gamepad1.x){
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
             }
