@@ -61,9 +61,15 @@ public class RedFoundation extends LinearOpMode{
 
         encoderDrive(1.0,85.0,85.0,85.0,85.0, 5.0);
         encoderDrive(1.0, -40.0, 40.0,-40.0, 40.0, 3.0);
-        encoderDrive(1.0, -70.0, -70.0, -70.0, -70.0, 5.0 );
-        encoderDrive(1.0, 60.0, -60.0, 60.0, -60.0, 3.0);
-        encoderDrive(1.0, -30.0, -30.0, -30.0, -30.0, 3.0);
+        encoderDrive(1.0, -40, 40, 40, -40, 3.0);
+        encoderDrive(1.0, 55.0, 55.0, 55.0, 55.0, 5.0);
+        encoderDrive(1.0, -35.0, 35.0, -35.0, 35.0, 3.0);
+        encoderDrive(1.0, 25.0, 25.0, 25.0, 25.0, 3.0);
+        encoderDrive(1.0, -17.5, 17.5, -17.5, 17.5, 3.0);
+        grabberTilt.setPosition(.3);
+        grabber1.setPosition(.5);
+        grabber2.setPosition(.5);
+        sleep(5000);
 
     }
     private void setUp() {
