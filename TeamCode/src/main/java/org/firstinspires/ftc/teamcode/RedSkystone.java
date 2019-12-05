@@ -94,11 +94,15 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Autonomous(name="SKYSTONE RED", group ="Autonomous")
 public class RedSkystone extends LinearOpMode {
 
-    //The following are addition made by your's truly:
+    //The following are addition made by yours truly:
     private DcMotor FR = null;
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private Servo grabber1=null;
+    private Servo grabber2=null;
+    public Servo grabberTilt=null;
+    int jerry=0;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -109,9 +113,6 @@ public class RedSkystone extends LinearOpMode {
             (WHEEL_DIAMETER_INCHES * 3.1415);
 
 
-
-
-
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
     // 1) Camera Source.  Valid choices are:  BACK (behind screen) or FRONT (selfie side)
     // 2) Phone Orientation. Choices are: PHONE_IS_PORTRAIT = true (portrait) or PHONE_IS_PORTRAIT = false (landscape)
@@ -119,7 +120,7 @@ public class RedSkystone extends LinearOpMode {
     // NOTE: If you are running on a CONTROL HUB, with only one USB WebCam, you must select CAMERA_CHOICE = BACK; and PHONE_IS_PORTRAIT = false;
     //
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
-    private static final boolean PHONE_IS_PORTRAIT = false  ;
+    private static final boolean PHONE_IS_PORTRAIT = false;
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -138,8 +139,8 @@ public class RedSkystone extends LinearOpMode {
 
     // Since ImageTarget trackables use mm to specifiy their dimensions, we must use mm for all the physical dimension.
     // We will define some constants and conversions here
-    private static final float mmPerInch        = 25.4f;
-    private static final float mmTargetHeight   = (6) * mmPerInch;          // the height of the center of the target image above the floor
+    private static final float mmPerInch = 25.4f;
+    private static final float mmTargetHeight = (6) * mmPerInch;          // the height of the center of the target image above the floor
 
     // Constant for Stone Target
     private static final float stoneZ = 2.00f * mmPerInch;
@@ -153,17 +154,18 @@ public class RedSkystone extends LinearOpMode {
 
     // Constants for perimeter targets
     private static final float halfField = 72 * mmPerInch;
-    private static final float quadField  = 36 * mmPerInch;
+    private static final float quadField = 36 * mmPerInch;
 
     // Class Members
     private OpenGLMatrix lastLocation = null;
     private VuforiaLocalizer vuforia = null;
     private boolean targetVisible = false;
-    private float phoneXRotate    = 0;
-    private float phoneYRotate    = 0;
-    private float phoneZRotate    = 0;
+    private float phoneXRotate = 0;
+    private float phoneYRotate = 0;
+    private float phoneZRotate = 0;
 
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -173,7 +175,7 @@ public class RedSkystone extends LinearOpMode {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection   = CAMERA_CHOICE;
+        parameters.cameraDirection = CAMERA_CHOICE;
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -266,7 +268,7 @@ public class RedSkystone extends LinearOpMode {
 
         front1.setLocation(OpenGLMatrix
                 .translation(-halfField, -quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 90)));
 
         front2.setLocation(OpenGLMatrix
                 .translation(-halfField, quadField, mmTargetHeight)
@@ -282,7 +284,7 @@ public class RedSkystone extends LinearOpMode {
 
         rear1.setLocation(OpenGLMatrix
                 .translation(halfField, quadField, mmTargetHeight)
-                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , -90)));
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90)));
 
         rear2.setLocation(OpenGLMatrix
                 .translation(halfField, -quadField, mmTargetHeight)
@@ -311,18 +313,18 @@ public class RedSkystone extends LinearOpMode {
 
         // Rotate the phone vertical about the X axis if it's in portrait mode
         if (PHONE_IS_PORTRAIT) {
-            phoneXRotate = 90 ;
+            phoneXRotate = 90;
         }
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
-        final float CAMERA_FORWARD_DISPLACEMENT  = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
+        final float CAMERA_FORWARD_DISPLACEMENT = 4.0f * mmPerInch;   // eg: Camera is 4 Inches in front of robot center
         final float CAMERA_VERTICAL_DISPLACEMENT = 8.0f * mmPerInch;   // eg: Camera is 8 Inches above ground
-        final float CAMERA_LEFT_DISPLACEMENT     = 0;     // eg: Camera is ON the robot's center line
+        final float CAMERA_LEFT_DISPLACEMENT = 0;     // eg: Camera is ON the robot's center line
 
         OpenGLMatrix robotFromCamera = OpenGLMatrix
-                    .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
-                    .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
+                .translation(CAMERA_FORWARD_DISPLACEMENT, CAMERA_LEFT_DISPLACEMENT, CAMERA_VERTICAL_DISPLACEMENT)
+                .multiplied(Orientation.getRotationMatrix(EXTRINSIC, YZX, DEGREES, phoneYRotate, phoneZRotate, phoneXRotate));
 
         /**  Let all the trackable listeners know where the phone is.  */
         for (VuforiaTrackable trackable : allTrackables) {
@@ -335,29 +337,32 @@ public class RedSkystone extends LinearOpMode {
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
 
-         setUp();
+        setUp();
         waitForStart();
 
-        //---------------------------------------------------------------------------------------------------
 
-
-
+        //----------------------------------------------------------------------------------------------------------------------------
 
 
         // Note: To use the remote camera preview:
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
+        encoderDrive(1,13,13,13,13,3);//move forward 18" to left hand sampling
+
         targetsSkyStone.activate();
+
         while (!isStopRequested()) {
+            boolean isYgood = false;
+            boolean isXgood = false;
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
             for (VuforiaTrackable trackable : allTrackables) {
-                if (((VuforiaTrackableDefaultListener)trackable.getListener()).isVisible()) {
+                if (((VuforiaTrackableDefaultListener) trackable.getListener()).isVisible()) {
                     telemetry.addData("Visible Target", trackable.getName());
 
-                    if(trackable.getName().equals("Stone Target")){
+                    if (trackable.getName().equals("Stone Target")) {
                         telemetry.addLine("Stone Target Is Visible");
                     }
 
@@ -365,7 +370,7 @@ public class RedSkystone extends LinearOpMode {
 
                     // getUpdatedRobotLocation() will return null if no new information is available since
                     // the last time that call was made, or if the trackable is not currently visible.
-                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener)trackable.getListener()).getUpdatedRobotLocation();
+                    OpenGLMatrix robotLocationTransform = ((VuforiaTrackableDefaultListener) trackable.getListener()).getUpdatedRobotLocation();
                     if (robotLocationTransform != null) {
                         lastLocation = robotLocationTransform;
                     }
@@ -377,61 +382,186 @@ public class RedSkystone extends LinearOpMode {
             String positionSkystone = "";
             if (targetVisible) {
                 // express position (translation) of robot in inches.
-                VectorF translation = lastLocation.getTranslation();
+                VectorF translation = lastLocation.getTranslation(); /*
                 telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
+                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
 
-                double xPosition = translation.get(0);
-                if(xPosition < -10){
-                    positionSkystone = "left";
-                }else{
-                    positionSkystone = "center";
+
+
+                double xPosition = translation.get(0) / mmPerInch;
+                double yPosition = translation.get(1)/ mmPerInch;
+//                    telemetry.addData("xPosition", xPosition);
+//                    telemetry.update();
+//                    telemetry.addData("yPosition", yPosition);
+//                    telemetry.update();
+
+                //Change in X
+
+                if ((xPosition <= -11)&&(xPosition >= -18)) { //middle
+                    telemetry.addData("no motion",0);
+                    telemetry.update();
+                    isXgood=true;
+
+
+                } else {
+                    double xDistanceRide = xPosition + 15;
+                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
                 }
 
+
+
+
+                //Change in Y
+                double yDistanceRide = yPosition;
+                if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
+                    telemetry.addData("no motion",1);
+                    telemetry.update();
+                    isYgood=true;
+
+
+
+                }
+
+                else if (yPosition <= -.5) { //move left
+                    // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    telemetry.addData("move left",1);
+                    telemetry.update();
+                }
+                else if (yPosition > .5){ // move right
+                    // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    telemetry.addData("move right",1);
+                    telemetry.update();
+                }
+
+//
+//                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
+//                    telemetry.addData("no motion",1);
+//                    telemetry.update();
+//                } else {
+//
+//                    encoderDrive(1, yDistanceRide, yDistanceRide, yDistanceRide, yDistanceRide, 1);
+//                }
+
+
+
+
+
                 // express the rotation of the robot in degrees.
-                Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             }
-            else {
+            jerry = jerry +1;
+            if(jerry==30000) {
+                telemetry.addData("out of loop", 0);
+                telemetry.update();
+                grabberTilt.setPosition(.1);//down
+                encoderDrive(1, -19, 19, -19, 19, 5);//was .5
+                encoderDrive(1, -3, -3, -3, -3, 5);
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
+                encoderDrive(1,13,-13,-13,13,5);//strafe right was .7
+
+                grabber1.setPosition(.4);
+                grabber2.setPosition(.4);
+                sleep(100);
+                encoderDrive(1,-12,12,12,-12,3);//strafe left was .5
+                grabberTilt.setPosition(.3);//lift up block
+                encoderDrive(1,60,60,60,60,5);
+                grabberTilt.setPosition(.1);//down
+                sleep(300);
+                grabberTilt.setPosition(.4);//up
+                grabber1.setPosition(1);
+                grabber2.setPosition(1);
+
+                encoderDrive(1,-85,-85,-85,-85,5);
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
+                encoderDrive(1, 19, -19, 19, -19, 5); //was .5
+
+            }
+            if(jerry==50000){
+                encoderDrive(1, -19, 19, -19, 19 , 5);//was .5
+                grabberTilt.setPosition(.1);//down
+                grabber1.setPosition(.7);
+                grabber2.setPosition(.7);
+                encoderDrive(1, -2.5, -2.5, -2.5, -2.5, 5);
+                encoderDrive(1 ,13,-13,-13,13,5);//strafe right was .7
+
+                grabber1.setPosition(.4);
+                grabber2.setPosition(.4);
+                sleep(100);
+                grabberTilt.setPosition(.4);//lift up block
+                sleep(100);
+                encoderDrive(1,-12,12,12,-12,3);//strafe left was .7
+                encoderDrive(1,90,90,90,90,5);
+                grabberTilt.setPosition(.1);
+                grabber1.setPosition(1);
+                grabber2.setPosition(1);
+                encoderDrive(1,-22,-22,-22,-22,3);//strafe left
+            }
+            /*else {
                 positionSkystone = "right";
                 telemetry.addData("Visible Target", "none");
-            }
-            telemetry.addData("Skystone Position", positionSkystone);
-            telemetry.update();
+            }*/
+            //telemetry.addData("Skystone Position", positionSkystone);
+            //telemetry.update();
+
         }
 
+        telemetry.addData("out of loop",1);
+        telemetry.update();
+
         // Disable Tracking when we are done;
-        targetsSkyStone.deactivate();
+        //targetsSkyStone.deactivate();
+
+        encoderDrive(.5,-20,20,-20,20,5);//rotate left
     }
-private void setUp(){
-    FR = hardwareMap.get(DcMotor.class, "fr");
-    FL = hardwareMap.get(DcMotor.class, "fl");
-    BR = hardwareMap.get(DcMotor.class, "br");
-    BL = hardwareMap.get(DcMotor.class, "bl");
-    //flippy= hardwareMap.servo.get("flippy_flipper");
 
-    FR.setDirection(DcMotor.Direction.FORWARD);
-    FL.setDirection(DcMotor.Direction.REVERSE);
-    BL.setDirection(DcMotor.Direction.REVERSE);
-    BR.setDirection(DcMotor.Direction.FORWARD);
+    private void align(){
 
-
-    // Send telemetry message to signify robot waiting;
-    telemetry.addData("Status", "Resetting Encoders");
-    telemetry.update();
-
-    FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-    FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+    private void setUp() {
+        FR = hardwareMap.get(DcMotor.class, "fr");
+        FL = hardwareMap.get(DcMotor.class, "fl");
+        BR = hardwareMap.get(DcMotor.class, "br");
+        BL = hardwareMap.get(DcMotor.class, "bl");
+        grabber1= hardwareMap.servo.get("grabber1");
+        grabber2= hardwareMap.servo.get("grabber2");
+        grabberTilt= hardwareMap.servo.get("grabber_tilt");
 
 
-}
+
+        FR.setDirection(DcMotor.Direction.FORWARD);
+        FL.setDirection(DcMotor.Direction.REVERSE);
+        BL.setDirection(DcMotor.Direction.REVERSE);
+        BR.setDirection(DcMotor.Direction.FORWARD);
+        grabber1.setDirection(Servo.Direction.FORWARD);
+        grabber2.setDirection(Servo.Direction.REVERSE);
+
+
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Resetting Encoders");
+        telemetry.update();
+
+        FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        grabberTilt.setPosition(.7);
+        grabber1.setPosition(0);
+        grabber2.setPosition(0);
+
+
+    }
+
     public void encoderDrive(double speed,
                              double FLin, double FRin, double BLin, double BRin,
                              double timeoutS) {
@@ -444,13 +574,13 @@ private void setUp(){
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFLTarget = FR.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
-            newFRTarget = FL.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
+            newFLTarget = FL.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
+            newFRTarget = FR.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
             newBLTarget = BL.getCurrentPosition() + (int) (BLin * COUNTS_PER_INCH);
             newBRTarget = BR.getCurrentPosition() + (int) (BRin * COUNTS_PER_INCH);
 
-            FR.setTargetPosition(newFLTarget);
-            FL.setTargetPosition(newFRTarget);
+            FR.setTargetPosition(newFRTarget);
+            FL.setTargetPosition(newFLTarget);
             BL.setTargetPosition(newBLTarget);
             BR.setTargetPosition(newBRTarget);
 
