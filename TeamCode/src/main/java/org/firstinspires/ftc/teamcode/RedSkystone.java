@@ -476,12 +476,13 @@ public class RedSkystone extends LinearOpMode {
                 grabber2.setPosition(1);
 
                 encoderDrive(1,-85,-85,-85,-85,5);
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
+
                 encoderDrive(1, 19, -19, 19, -19, 5); //was .5
 
             }
             if(jerry==50000){
+                grabber1.setPosition(.6);
+                grabber2.setPosition(.6);
                 encoderDrive(1, -19, 19, -19, 19 , 5);//was .5
                 grabberTilt.setPosition(.1);//down
                 grabber1.setPosition(.7);
