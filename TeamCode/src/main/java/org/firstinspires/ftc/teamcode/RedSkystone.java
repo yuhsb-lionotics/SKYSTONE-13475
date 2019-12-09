@@ -29,12 +29,13 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.hardware.camera2.CameraDevice;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -47,6 +48,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
+
 
 /**
  *
@@ -315,6 +319,7 @@ public class RedSkystone extends LinearOpMode {
         if (PHONE_IS_PORTRAIT) {
             phoneXRotate = 90;
         }
+        
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
@@ -337,6 +342,7 @@ public class RedSkystone extends LinearOpMode {
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
 
+        
         setUp();
         waitForStart();
 
@@ -348,7 +354,7 @@ public class RedSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,13,13,13,13,3);//move forward 18" to left hand sampling
+        encoderDrive(1,17,17,17,17 ,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -466,7 +472,7 @@ public class RedSkystone extends LinearOpMode {
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
-                encoderDrive(1,-12,12,12,-12,3);//strafe left was .5
+                encoderDrive(1,-20,20,20,-20,3);//strafe left was .5 12
                 grabberTilt.setPosition(.3);//lift up block
                 encoderDrive(1,60,60,60,60,5);
                 grabberTilt.setPosition(.1);//down
@@ -474,13 +480,14 @@ public class RedSkystone extends LinearOpMode {
                 grabberTilt.setPosition(.4);//up
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
+                encoderDrive(1,-22,-22,-22,-22,3);//strafe left     ADDED
 
-                encoderDrive(1,-85,-85,-85,-85,5);
+              //  encoderDrive(1,-85,-85,-85,-85,5);
 
-                encoderDrive(1, 19, -19, 19, -19, 5); //was .5
+               // encoderDrive(1, 19, -19, 19, -19, 5); //was .5
 
             }
-            if(jerry==50000){
+            if(/*jerry==50000*/ false){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1, -19, 19, -19, 19 , 5);//was .5
@@ -524,6 +531,7 @@ public class RedSkystone extends LinearOpMode {
 
     }
     private void setUp() {
+
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");

@@ -43,6 +43,7 @@ public class RedFoundation extends LinearOpMode{
     public void runOpMode() {
         setUp();
         waitForStart();
+        sleep(10000);
 /** Let's quickly recap how to use encoder drive. Refer to class MotionSpeeds in MotorSpeeds.java
  *             !These are just motor values, not what encoder drive should be!
  *             case N: encodeDrive(1.0,1.0,1.0,1.0);

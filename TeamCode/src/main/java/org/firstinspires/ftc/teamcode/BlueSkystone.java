@@ -177,6 +177,8 @@ public class BlueSkystone extends LinearOpMode {
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection = CAMERA_CHOICE;
 
+
+
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
@@ -348,7 +350,7 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,13,13,13,13,3);//move forward 18" to left hand sampling
+        encoderDrive(1,17,17,17,17,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -474,13 +476,13 @@ public class BlueSkystone extends LinearOpMode {
                 grabberTilt.setPosition(.4);//up
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
+                encoderDrive(1,22,22,22,22,3);//strafe left ADDD
+                //encoderDrive(1,90,90,90,90,7);
 
-                encoderDrive(1,90,90,90,90,7);
-
-                encoderDrive(1, 19, -19, 19, -19, 5); //was .5
+                //encoderDrive(1, 19, -19, 19, -19, 5); //was .5
 
             }
-            if(jerry==60000){
+            if(/*jerry==60000*/false){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1, -19, 19, -19, 19 , 5);//was .5
