@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.vuforia.CameraDevice;
 
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -46,6 +47,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
+
+import org.opencv.android.JavaCameraView;
+import android.hardware.Camera;
+//import android.hardware.camera2.CameraDevice;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +110,8 @@ public class BlueSkystone extends LinearOpMode {
     public Servo grabberTilt=null;
     int jerry=0;
 
+
+
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
@@ -111,6 +119,8 @@ public class BlueSkystone extends LinearOpMode {
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
+
+
 
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
@@ -166,6 +176,7 @@ public class BlueSkystone extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -338,7 +349,9 @@ public class BlueSkystone extends LinearOpMode {
         // This sequence is used to enable the new remote DS Camera Preview feature to be used with this sample.
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
+        //javaCameraView.turnOnTheFlash();
 
+        CameraDevice.getInstance().setFlashTorchMode(true);
         setUp();
         waitForStart();
 
@@ -633,4 +646,5 @@ public class BlueSkystone extends LinearOpMode {
             BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
+
 }

@@ -346,6 +346,18 @@ public class JavaCameraView extends CameraBridgeViewBase implements PreviewCallb
         private int mHeight;
     };
 
+public void turnOffTheFlash() {
+    Camera.Parameters params = mCamera.getParameters();
+    params.setFlashMode(params.FLASH_MODE_OFF);
+    mCamera.setParameters(params);
+}
+
+public void turnOnTheFlash() {
+    Camera.Parameters params = mCamera.getParameters();
+    params.setFlashMode(params.FLASH_MODE_TORCH);
+    mCamera.setParameters(params);
+}
+
     private class CameraWorker implements Runnable {
 
         @Override
