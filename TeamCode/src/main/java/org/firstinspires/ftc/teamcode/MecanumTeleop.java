@@ -31,7 +31,7 @@ public class MecanumTeleop extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 5.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -83,19 +83,27 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber2.setPosition(.4);
             }
             if(gamepad1.dpad_up){
-                encoderDrive(1.0, 5.0, 1.0);
+               // while(gamepad1.dpad_up);
+                encoderDrive(.5, .2, 1.5);
+                peretz.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+
+
             }
-            if(gamepad1.dpad_down){
-                grabberTilt.setPosition(.1);
+            else if(gamepad1.dpad_down){
+               // while(gamepad1.dpad_down);
+                encoderDrive(.5, -.2, 1.5);
+                peretz.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
             }
+           // peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
 
 
         }
-
-
-
-
-
     }
 
             private void hardwareSetup(){
@@ -200,6 +208,7 @@ public class MecanumTeleop extends LinearOpMode {
             // Turn On RUN_TO_POSITION
             peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+
             // reset the timeout time and start motion.
             runtime.reset();
 
@@ -213,16 +222,21 @@ public class MecanumTeleop extends LinearOpMode {
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
                     (peretz.isBusy())) {
-                // Display it for the driver
+                int jim = peretz.getCurrentPosition();
+                telemetry.addData("Position: ",newPeretzTarget);
+                telemetry.update();
             }
-            // Stop all motion;
-            peretz.setPower(0);
-            // Turn off RUN_TO_POSITION
-            peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            }
+                // Stop all motion;
+                peretz.setPower(0);
+
+                // Turn off RUN_TO_POSITION
+                peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         }
     }
 
-        }
+
 
 
 
