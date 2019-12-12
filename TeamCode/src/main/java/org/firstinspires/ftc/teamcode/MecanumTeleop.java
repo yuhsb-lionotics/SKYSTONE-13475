@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -23,10 +24,18 @@ public class MecanumTeleop extends LinearOpMode {
     protected DcMotor motorFrontRight;
     protected DcMotor motorBackLeft;
     protected DcMotor motorBackRight;
+    protected DcMotor peretz;
     private Servo grabber1=null;
     private Servo grabber2=null;
     private Servo grabberTilt = null;
 
+    private ElapsedTime runtime = new ElapsedTime();
+
+    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double WHEEL_DIAMETER_INCHES = 5.0;     // For figuring circumference
+    static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+            (WHEEL_DIAMETER_INCHES * Math.PI);
     MotorSpeeds speed;
 
     @Override
@@ -74,12 +83,11 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber2.setPosition(.4);
             }
             if(gamepad1.dpad_up){
-                grabberTilt.setPosition(.6);
+                encoderDrive(1.0, 5.0, 1.0);
             }
             if(gamepad1.dpad_down){
                 grabberTilt.setPosition(.1);
             }
-
 
 
         }
@@ -99,6 +107,7 @@ public class MecanumTeleop extends LinearOpMode {
                 motorFrontRight = hardwareMap.dcMotor.get("fr");
                 motorBackLeft = hardwareMap.dcMotor.get("bl");
                 motorBackRight = hardwareMap.dcMotor.get("br");
+                peretz = hardwareMap.dcMotor.get("peretz");
 
                 grabber1= hardwareMap.servo.get("grabber1");
                 grabber2= hardwareMap.servo.get("grabber2");
@@ -106,6 +115,8 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber1.setDirection(Servo.Direction.FORWARD);
                 grabber2.setDirection(Servo.Direction.REVERSE);
                 grabberTilt.setDirection(Servo.Direction.FORWARD);
+                peretz.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
                 grabberTilt.setPosition(.9);
                 grabber1.setPosition(0);
@@ -171,81 +182,45 @@ public class MecanumTeleop extends LinearOpMode {
                 speed.updateMotors();
 
 
-
-
-        /*
-        //Speed is a double from 0 - 1.0 and is a scale factor to be applied to motor powers
-        double speedCoef = Math.sqrt(Math.pow(gamepad1.left_stick_x,2) + Math.pow(gamepad1.left_stick_y,2));
-
-        if(gamepad1.left_stick_x >= 0 && fixedYValue >= 0) {
-            //first quad
-
-            //If diff of values is less than .3 go diagonal
-            if(Math.abs(gamepad1.left_stick_x - fixedYValue) > 0.3) {
-                //Go horizontal or vertical
-
-                //X > Y GO EAST
-                if(gamepad1.left_stick_x > fixedYValue) speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.E));
-
-                    //Y > X GO NORTH
-                else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.N));
             }
+    public void encoderDrive(double speed,
+                             double peretzz,
+                             double timeoutS) {
 
-            else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.NE));
+
+        int newPeretzTarget;
+
+        // Ensure that the opmode is still active
+        if (opModeIsActive()) {
+
+            // Determine new target position, and pass to motor controller
+            newPeretzTarget = peretz.getCurrentPosition() + (int) (peretzz * COUNTS_PER_INCH);
+            peretz.setTargetPosition(newPeretzTarget);
+
+            // Turn On RUN_TO_POSITION
+            peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            // reset the timeout time and start motion.
+            runtime.reset();
+
+            peretz.setPower(Math.abs(speed));
+            // keep looping while we are still active, and there is time left, and both motors are running.
+            // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
+            // its target position, the motion will stop.  This is "safer" in the event that the robot will
+            // always end the motion as soon as possible.
+            // However, if you require that BOTH motors have finished their moves before the robot continues
+            // onto the next step, use (isBusy() || isBusy()) in the loop test.
+            while (opModeIsActive() &&
+                    (runtime.seconds() < timeoutS) &&
+                    (peretz.isBusy())) {
+                // Display it for the driver
+            }
+            // Stop all motion;
+            peretz.setPower(0);
+            // Turn off RUN_TO_POSITION
+            peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
-
-        else if(gamepad1.left_stick_x < 0 && fixedYValue >= 0) {
-            //second quad
-            if(Math.abs(-gamepad1.left_stick_x - fixedYValue) > 0.3) {
-                if(-gamepad1.left_stick_x > fixedYValue) {
-                    //GO W
-                    speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.W));
-                }
-
-                else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.N));
-            }
-            else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.NW));
-
-        }
-        else if(gamepad1.left_stick_x < 0 && fixedYValue < 0) {
-            //third quad
-
-            if(Math.abs(gamepad1.left_stick_x - fixedYValue) > 0.3) {
-                if(gamepad1.left_stick_x < fixedYValue) {
-                    //GO W
-                    speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.W));
-                }
-
-                else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.S));
-            }
-            else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.SW));
-
-        }
-        else {
-            //fourth quad
-
-            if(Math.abs(gamepad1.left_stick_x + fixedYValue) > 0.3) {
-                if(gamepad1.left_stick_x > -fixedYValue) {
-                    //GO W
-                    speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.E));
-                }
-
-                else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.S));
-            }
-            else speed.setSpeedsFromMotorSpeeds(MotorSpeeds.getSpeed(MotionDirections.SE));
-
-        }
-
-        //apply speed coefficient
-        speed.backRight *= speedCoef;
-        speed.backLeft *= speedCoef;
-        speed.frontRight *= speedCoef;
-        speed.frontLeft *= speedCoef;
-
-        speed.updateMotors();
-*/
-
-            }
+    }
 
         }
 
