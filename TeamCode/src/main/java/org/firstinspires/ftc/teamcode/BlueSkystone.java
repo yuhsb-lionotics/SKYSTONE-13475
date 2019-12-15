@@ -105,10 +105,13 @@ public class BlueSkystone extends LinearOpMode {
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    public Servo grabberTilt=null;
+    public Servo foundation=null;
+
     int jerry=0;
+
 
 
 
@@ -176,6 +179,8 @@ public class BlueSkystone extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+        telemetry.addData("Initializing", "DO NOT TOUCH");
+        telemetry.update();
 
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -363,7 +368,7 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,17,17,17,17,3);//move forward 18" to left hand sampling
+        encoderDrive(1,17,17,17,17,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -420,7 +425,7 @@ public class BlueSkystone extends LinearOpMode {
 
                 } else {
                     double xDistanceRide = xPosition + 15;
-                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 1);
+                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 0,1);
                 }
 
 
@@ -439,13 +444,13 @@ public class BlueSkystone extends LinearOpMode {
 
                 else if (yPosition <= -.5) { //move left
                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
                     telemetry.addData("move left",1);
                     telemetry.update();
                 }
                 else if (yPosition > .5){ // move right
                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 5);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
                     telemetry.addData("move right",1);
                     telemetry.update();
                 }
@@ -471,51 +476,52 @@ public class BlueSkystone extends LinearOpMode {
             if(jerry==30000) {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
-                grabberTilt.setPosition(.1);//down
-                encoderDrive(1, -19, 19, -19, 19, 5);//was .5
-                encoderDrive(1, -3, -3, -3, -3, 5);
+                foundation.setPosition(.1);//down
+
+                encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
+                encoderDrive(1, -3, -3, -3, -3, 0,5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,13,-13,-13,13,5);//strafe right was .7
+                encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
-                encoderDrive(1,-12,12,12,-12,3);//strafe left was .5
-                grabberTilt.setPosition(.3);//lift up block
-                encoderDrive(1,-60,-60,-60,-60,5);
-                grabberTilt.setPosition(.1);//down
+                encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .5
+                foundation.setPosition(.3);//lift up block
+                encoderDrive(1,-60,-60,-60,-60,0,5);
+                foundation.setPosition(.1);//down
                 sleep(300);
-                grabberTilt.setPosition(.4);//up
+                foundation.setPosition(.4);//up
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,3);//strafe left ADDD
-                //encoderDrive(1,90,90,90,90,7);
+                //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDD
+                encoderDrive(1,90,90,90,90,0,7);
 
-                //encoderDrive(1, 19, -19, 19, -19, 5); //was .5
+                encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
             }
-            if(/*jerry==60000*/false){
+            if(jerry==60000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1, -19, 19, -19, 19 , 5);//was .5
-                grabberTilt.setPosition(.1);//down
+                encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
+                foundation.setPosition(.1);//down
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
-                encoderDrive(1, -2.5, -2.5, -2.5, -2.5, 5);
-                encoderDrive(1 ,13,-13,-13,13,5);//strafe right was .7
+                encoderDrive(1, -2.5, -2.5, -2.5, -2.5, 0,5);
+                encoderDrive(1 ,13,-13,-13,13,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 sleep(100);
-                grabberTilt.setPosition(.4);//lift up block
+                foundation.setPosition(.4);//lift up block
                 sleep(100);
-                encoderDrive(1,-12,12,12,-12,3);//strafe left was .7
-                encoderDrive(1,-90,-90,-90,-90,5);
-                grabberTilt.setPosition(.1);
+                encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .7
+                encoderDrive(1,-90,-90,-90,-90,0,5);
+                foundation.setPosition(.1);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,3);//strafe left
+                encoderDrive(1,22,22,22,22,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
@@ -532,7 +538,7 @@ public class BlueSkystone extends LinearOpMode {
         // Disable Tracking when we are done;
         //targetsSkyStone.deactivate();
 
-        encoderDrive(.5,-20,20,-20,20,5);//rotate left
+        encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
     }
 
     private void align(){
@@ -543,9 +549,10 @@ public class BlueSkystone extends LinearOpMode {
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
+        peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
-        grabberTilt= hardwareMap.servo.get("grabber_tilt");
+        foundation= hardwareMap.servo.get("grabber_tilt");
 
 
 
@@ -553,6 +560,7 @@ public class BlueSkystone extends LinearOpMode {
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         BR.setDirection(DcMotor.Direction.FORWARD);
+        peretz.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
 
@@ -565,26 +573,33 @@ public class BlueSkystone extends LinearOpMode {
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        peretz.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        grabberTilt.setPosition(.7);
+
         grabber1.setPosition(0);
         grabber2.setPosition(0);
+        foundation.setPosition(.4);
+
+        telemetry.addData("Game Time", "over 9000");
+        telemetry.update();
 
 
     }
 
     public void encoderDrive(double speed,
-                             double FLin, double FRin, double BLin, double BRin,
+                             double FLin, double FRin, double BLin, double BRin, double peretzz,
                              double timeoutS) {
         int newFLTarget;
         int newFRTarget;
         int newBLTarget;
         int newBRTarget;
+        int newPeretzTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
@@ -594,17 +609,20 @@ public class BlueSkystone extends LinearOpMode {
             newFRTarget = FR.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
             newBLTarget = BL.getCurrentPosition() + (int) (BLin * COUNTS_PER_INCH);
             newBRTarget = BR.getCurrentPosition() + (int) (BRin * COUNTS_PER_INCH);
+            newPeretzTarget = peretz.getCurrentPosition() + (int) (peretzz*COUNTS_PER_INCH);
 
             FR.setTargetPosition(newFRTarget);
             FL.setTargetPosition(newFLTarget);
             BL.setTargetPosition(newBLTarget);
             BR.setTargetPosition(newBRTarget);
+            peretz.setTargetPosition(newPeretzTarget);
 
             // Turn On RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -612,6 +630,7 @@ public class BlueSkystone extends LinearOpMode {
             FL.setPower(Math.abs(speed));
             BL.setPower(Math.abs(speed));
             BR.setPower(Math.abs(speed));
+            peretz.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -621,7 +640,7 @@ public class BlueSkystone extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())) {
+                    ((FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())||peretz.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d :%7d", newFLTarget, newFRTarget, newBLTarget, newFLTarget);
@@ -638,12 +657,14 @@ public class BlueSkystone extends LinearOpMode {
             FL.setPower(0);
             BL.setPower(0);
             BR.setPower(0);
+            peretz.setPower(0);
 
             // Turn off RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
