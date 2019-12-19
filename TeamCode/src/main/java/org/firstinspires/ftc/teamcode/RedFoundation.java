@@ -103,7 +103,7 @@ public class RedFoundation extends LinearOpMode{
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        grabberTilt.setPosition(.7);
+        grabberTilt.setPosition(.8);
         grabber1.setPosition(0);
         grabber2.setPosition(0);
 

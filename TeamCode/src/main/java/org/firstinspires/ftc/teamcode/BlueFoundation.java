@@ -43,7 +43,6 @@ public class BlueFoundation extends LinearOpMode{
     public void runOpMode() {
         setUp();
         waitForStart();
-        sleep(10000);
 /** Let's quickly recap how to use encoder drive. Refer to class MotionSpeeds in MotorSpeeds.java
  *             !These are just motor values, not what encoder drive should be!
  *             case N: encodeDrive(1.0,1.0,1.0,1.0);
@@ -61,14 +60,15 @@ public class BlueFoundation extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1.0,85.0,85.0,85.0,85.0, 5.0);
-        encoderDrive(1.0, 30.0, -30.0,30.0, -30.0, 3.0);
-        encoderDrive(1.0, -55.0, -55.0, -55.0, -55.0, 5.0);
-        encoderDrive(1.0, -35.0, 35.0, -35.0, 35.0, 3.0);
-        encoderDrive(1.0, -25.0, -25.0, -25.0, -25.0, 3.0);
-        encoderDrive(1.0, -17.5, 17.5, -17.5, 17.5, 3.0);
+        encoderDrive(1.0,35.0,35.0,35.0,35.0, 5.0);
+        encoderDrive(1.0, -20, 20, 20, -20, 3.0);
+        encoderDrive(1.0, -5, -5, -5, -5, 3);
+        encoderDrive(1, 5,-5,5,-5, 3);
         grabberTilt.setPosition(.3);
-        grabber1.setPosition(.5);
+        sleep(500);
+        encoderDrive(1.0, -30.0, 30.0,-30.0, 30.0, 3.0);
+        encoderDrive(1.0, 50, -50, -50, 50, 3.0);
+        grabberTilt.setPosition(.8);
         grabber2.setPosition(.5);
         sleep(5000);
 
@@ -103,7 +103,7 @@ public class BlueFoundation extends LinearOpMode{
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        grabberTilt.setPosition(.7);
+        grabberTilt.setPosition(.8);
         grabber1.setPosition(0);
         grabber2.setPosition(0);
 
