@@ -117,7 +117,7 @@ public class BlueSkystone extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -476,7 +476,6 @@ public class BlueSkystone extends LinearOpMode {
             if(jerry==30000) {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
-                foundation.setPosition(.1);//down
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 encoderDrive(1, -3, -3, -3, -3, 0,5);
@@ -488,11 +487,12 @@ public class BlueSkystone extends LinearOpMode {
                 grabber2.setPosition(.4);
                 sleep(100);
                 encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .5
-                foundation.setPosition(.3);//lift up block
+                encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 encoderDrive(1,-60,-60,-60,-60,0,5);
-                foundation.setPosition(.1);//down
+                encoderDrive(1, 0, 0, 0, 0,10, 5);
                 sleep(300);
-                foundation.setPosition(.4);//up
+
+                encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
                 //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDD
@@ -505,7 +505,7 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
-                foundation.setPosition(.1);//down
+                encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
                 encoderDrive(1, -2.5, -2.5, -2.5, -2.5, 0,5);
@@ -513,15 +513,15 @@ public class BlueSkystone extends LinearOpMode {
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
-                sleep(100);
-                foundation.setPosition(.4);//lift up block
+                encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 sleep(100);
                 encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .7
                 encoderDrive(1,-90,-90,-90,-90,0,5);
-                foundation.setPosition(.1);
+
+                encoderDrive(1, 0, 0, 0, 0,10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,0,3);//strafe left
+                encoderDrive(1,22,22,22,22,-10,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
@@ -584,7 +584,7 @@ public class BlueSkystone extends LinearOpMode {
 
         grabber1.setPosition(0);
         grabber2.setPosition(0);
-        foundation.setPosition(.4);
+        foundation.setPosition(1);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
