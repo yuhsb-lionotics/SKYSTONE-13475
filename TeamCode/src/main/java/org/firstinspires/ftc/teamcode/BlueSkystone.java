@@ -478,7 +478,7 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                encoderDrive(1, -3, -3, -3, -3, 0,5);
+                encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
@@ -487,12 +487,12 @@ public class BlueSkystone extends LinearOpMode {
                 grabber2.setPosition(.4);
                 sleep(100);
                 encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .5
-                encoderDrive(1, 0, 0, 0, 0,-10, 5);
+                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 encoderDrive(1,-60,-60,-60,-60,0,5);
-                encoderDrive(1, 0, 0, 0, 0,10, 5);
-                sleep(300);
+               // encoderDrive(1, 0, 0, 0, 0,10, 5);
+                //sleep(300);
 
-                encoderDrive(1, 0, 0, 0, 0,-10, 5);
+               // encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
                 //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDD
@@ -505,23 +505,23 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
-                encoderDrive(1, 0, 0, 0, 0,3, 5);
+                //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
-                encoderDrive(1, -2.5, -2.5, -2.5, -2.5, 0,5);
+                encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
                 encoderDrive(1 ,13,-13,-13,13,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
-                encoderDrive(1, 0, 0, 0, 0,-10, 5);
-                sleep(100);
+                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
+                //sleep(100);
                 encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .7
                 encoderDrive(1,-90,-90,-90,-90,0,5);
 
-                encoderDrive(1, 0, 0, 0, 0,10, 5);
+               // encoderDrive(1, 0, 0, 0, 0,10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,-10,3);//strafe left
+                encoderDrive(1,22,22,22,22,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
