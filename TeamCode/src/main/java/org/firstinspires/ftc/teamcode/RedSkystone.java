@@ -107,6 +107,7 @@ public class RedSkystone extends LinearOpMode {
     private Servo grabber2=null;
     public Servo foundation=null;
     int jerry=0;
+    boolean right = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -356,7 +357,7 @@ public class RedSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,17,17,17,17 ,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,10,10,10,10 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -421,6 +422,12 @@ public class RedSkystone extends LinearOpMode {
 
                 //Change in Y
                 double yDistanceRide = yPosition;
+                if(yPosition<=-20.0){
+                    right=true;
+                    telemetry.addData("block is right","");
+                    telemetry.update();
+                    sleep(2000);
+                }
                 if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
                     telemetry.addData("no motion",1);
                     telemetry.update();
@@ -466,7 +473,7 @@ public class RedSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                encoderDrive(1, -.5, -.5, -.5, -.5,0, 5);
+                //encoderDrive(1, -.5, -.5, -.5, -.5,0, 5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
@@ -481,7 +488,6 @@ public class RedSkystone extends LinearOpMode {
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                //encoderDrive(1,-22,-22,-22,-22,0,3);//strafe left     ADDED
 
                 encoderDrive(1,-85,-85,-85,-85,0,5);
 
@@ -495,18 +501,18 @@ public class RedSkystone extends LinearOpMode {
 
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
-                encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
+                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
                 encoderDrive(1 ,13,-13,-13,13,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .7
+                encoderDrive(1,-13,13,13,-13,0,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
 
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,-22,-22,-22,-22,0,3);//strafe left
+                encoderDrive(1,22,22,22,22,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
