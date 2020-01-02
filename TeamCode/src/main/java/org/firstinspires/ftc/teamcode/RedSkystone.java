@@ -357,7 +357,7 @@ public class RedSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,10,10,10,10 ,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,15,15,15,15 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -492,6 +492,7 @@ public class RedSkystone extends LinearOpMode {
                 encoderDrive(1,-85,-85,-85,-85,0,5);
 
                 encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
+                encoderDrive(1,8,8,8,8,0,5);
 
             }
             if(jerry==50000){
@@ -507,12 +508,12 @@ public class RedSkystone extends LinearOpMode {
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                encoderDrive(1,-13,13,13,-13,0,3);//strafe left was .7
+                encoderDrive(1,-15,15,15,-15,0,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
-
+                encoderDrive(1,85,85,85,85,0,5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,0,3);//strafe left
+                encoderDrive(1,-22,-22,-22,-22,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";

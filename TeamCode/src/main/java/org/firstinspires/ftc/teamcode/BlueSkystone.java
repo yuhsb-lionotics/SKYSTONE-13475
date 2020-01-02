@@ -368,7 +368,7 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,17,17,17,17,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,15,15,15,15,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
