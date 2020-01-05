@@ -66,8 +66,8 @@ public class BlueFoundation extends LinearOpMode{
         encoderDrive(1, 5,-5,5,-5, 3);
         grabberTilt.setPosition(.3);
         sleep(500);
-        encoderDrive(1.0, -30.0, 30.0,-30.0, 30.0, 3.0);
-        encoderDrive(1.0, 50, -50, -50, 50, 3.0);
+        encoderDrive(1.0, -50.0, 50.0,-50.0, 50.0, 3.0);
+        encoderDrive(1.0, 70, -70, -70, 70, 3.0);
         grabberTilt.setPosition(.8);
         grabber2.setPosition(.5);
         sleep(5000);
