@@ -489,26 +489,26 @@ public class RedSkystone extends LinearOpMode {
                 grabber2.setPosition(1);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
 
-                encoderDrive(1,-85,-85,-85,-85,0,5);
+                encoderDrive(1,-86,-86,-86,-86,0,5);
 
-                encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
-                //encoderDrive(1,8,8,8,8,0,5);
+                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
+
 
             }
-            if(jerry==50000){
+            if(jerry==30000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
+                //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
 
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
-                encoderDrive(1 ,15,-15,-15,15,0,5);//strafe right was .7
+                encoderDrive(1 ,32,-32,-32,32,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                encoderDrive(1,-17,17,17,-17,0,3);//strafe left was .7
+                encoderDrive(1,-34,34,34,-34,0,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 encoderDrive(1,85,85,85,85,0,5);
                 grabber1.setPosition(1);
@@ -530,7 +530,7 @@ public class RedSkystone extends LinearOpMode {
         // Disable Tracking when we are done;
         //targetsSkyStone.deactivate();
 
-        encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
+        //encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
     }
 
     private void align(){
