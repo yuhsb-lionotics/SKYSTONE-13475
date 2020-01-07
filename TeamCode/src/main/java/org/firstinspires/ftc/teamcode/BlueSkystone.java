@@ -112,9 +112,6 @@ public class BlueSkystone extends LinearOpMode {
 
     int jerry=0;
 
-
-
-
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
@@ -399,7 +396,7 @@ public class BlueSkystone extends LinearOpMode {
             }
 
             // Provide feedback as to where the robot is located (if we know).
-            String positionSkystone = "";
+            String positionSkystone = "";//ignore
             if (targetVisible) {
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation(); /*
@@ -478,7 +475,7 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
+                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
@@ -489,14 +486,11 @@ public class BlueSkystone extends LinearOpMode {
                 encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5
                 //encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 encoderDrive(1,-60,-60,-60,-60,0,5);
-               // encoderDrive(1, 0, 0, 0, 0,10, 5);
-                //sleep(300);
 
-               // encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDD
-                encoderDrive(1,86,86,86,86,0,7);
+                //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDED
+                encoderDrive(1,86,86,86,86,0,7);//move to 2nd block
 
                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 

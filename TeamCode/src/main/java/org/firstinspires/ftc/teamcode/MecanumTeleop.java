@@ -117,9 +117,9 @@ public class MecanumTeleop extends LinearOpMode {
                 peretz.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
-                grabberTilt.setPosition(.8);
-                grabber1.setPosition(0);
-                grabber2.setPosition(0);
+                //grabberTilt.setPosition(.8);
+                //grabber1.setPosition(0);
+                //grabber2.setPosition(0);
 
             }
 
