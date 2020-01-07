@@ -368,7 +368,7 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,15,15,15,15,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,18,18,18,18,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -478,15 +478,15 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
+                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
-                sleep(100);
-                encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .5
+
+                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5
                 //encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 encoderDrive(1,-60,-60,-60,-60,0,5);
                // encoderDrive(1, 0, 0, 0, 0,10, 5);
@@ -496,27 +496,27 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
                 //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDD
-                encoderDrive(1,90,90,90,90,0,7);
+                encoderDrive(1,86,86,86,86,0,7);
 
-                encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
+               //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
             }
-            if(jerry==60000){
+            if(jerry==30000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
+                //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
-                encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
-                encoderDrive(1 ,13,-13,-13,13,0,5);//strafe right was .7
+                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
+                encoderDrive(1 ,32,-32,-32,32,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-10, 5);
                 //sleep(100);
-                encoderDrive(1,-12,12,12,-12,0,3);//strafe left was .7
-                encoderDrive(1,-90,-90,-90,-90,0,5);
+                encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
+                encoderDrive(1,-85,-85,-85,-85,0,5);
 
                // encoderDrive(1, 0, 0, 0, 0,10, 5);
                 grabber1.setPosition(1);

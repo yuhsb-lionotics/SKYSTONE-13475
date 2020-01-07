@@ -473,7 +473,7 @@ public class RedSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                encoderDrive(1, 3, 3, 3, 3,0, 5);
+                //encoderDrive(1, 3, 3, 3, 3,0, 5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
@@ -482,7 +482,7 @@ public class RedSkystone extends LinearOpMode {
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
                 //sleep(100);
-                encoderDrive(1,-20,20,20,-20,0,3);//strafe left was .5 12
+                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5 12
                 encoderDrive(1,60,60,60,60,0,5);
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(1);
@@ -508,7 +508,7 @@ public class RedSkystone extends LinearOpMode {
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                encoderDrive(1,-34,34,34,-34,0,3);//strafe left was .7
+                encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 encoderDrive(1,85,85,85,85,0,5);
                 grabber1.setPosition(1);
