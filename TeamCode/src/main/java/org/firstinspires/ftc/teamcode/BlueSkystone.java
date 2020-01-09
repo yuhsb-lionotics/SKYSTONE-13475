@@ -494,8 +494,8 @@ public class BlueSkystone extends LinearOpMode {
 
                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
-            }
-            if(jerry==30000){
+            //}
+            //if(jerry==30000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
