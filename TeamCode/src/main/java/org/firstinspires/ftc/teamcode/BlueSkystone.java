@@ -478,7 +478,7 @@ public class BlueSkystone extends LinearOpMode {
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,13,-13,-13,13,0,5);//strafe right was .7
+                encoderDrive(1,13,-15,-15,15,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
@@ -494,8 +494,8 @@ public class BlueSkystone extends LinearOpMode {
 
                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
-            }
-            if(jerry==30000){
+            //}
+            //if(jerry==30000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
@@ -532,7 +532,7 @@ public class BlueSkystone extends LinearOpMode {
         // Disable Tracking when we are done;
         //targetsSkyStone.deactivate();
 
-        encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
+        //encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
     }
 
     private void align(){
