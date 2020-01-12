@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Blue Foundation", group ="Autonomous")
-public class BlueFoundation extends LinearOpMode{
+@Autonomous(name="Blue Foundation No Parking", group ="Autonomous")
+public class BlueFoundationNoParking extends LinearOpMode{
 
     //The following are addition made by your's truly:
     private DcMotor FR = null;
@@ -59,16 +59,17 @@ public class BlueFoundation extends LinearOpMode{
  *
  */
 
-        //CODE GOES HERE- THANK YOU FOR THE INDICATION:
+        //CODE GOES HERE- Ho Ho Ho I hit the whoa merry x-mas...
+        //Did you ever hear teh tragedy of darth plaguis the wise?? I thought not. It's not a story the JEDI WOULD tell you
+        //stay off the WEED
         encoderDrive(1.0,35.0,35.0,35.0,35.0, 5.0);
         encoderDrive(1.0, -20, 20, 20, -20, 3.0);
-        encoderDrive(1.0, -5, -5, -5, -5, 3);
+        encoderDrive(1.0, -7, -7, -7, -7, 3);
         encoderDrive(1, 5,-5,5,-5, 3);
         grabberTilt.setPosition(.3);
         sleep(500);
         encoderDrive(1.0, -50.0, 50.0,-50.0, 50.0, 3.0);
-        encoderDrive(1.0, 70, -70, -70, 70, 3.0);
-        encoderDrive(1, 50, -50, -50, 50, 3);
+        encoderDrive(1.0, -70, 70, -70, 70, 3.0);
         grabberTilt.setPosition(.8);
         grabber2.setPosition(.5);
         sleep(5000);
