@@ -97,7 +97,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
-@Autonomous(name="SKYSTONE Blue", group ="Autonomous")
+@Autonomous(name="SKYSTONE Red", group ="Autonomous")
 public class BlueSkystone extends LinearOpMode {
 
     //The following are addition made by yours truly:
