@@ -64,12 +64,10 @@ public class BlueFoundationNoParking extends LinearOpMode{
         encoderDrive(1.0, -20, 20, 20, -20, 3.0);
         encoderDrive(1.0, -7, -7, -7, -7, 3);
         encoderDrive(1, 5,-5,5,-5, 3);
+        encoderDrive(1, -7,-7,-7,7, 3);
         grabberTilt.setPosition(.3);
         sleep(500);
-        encoderDrive(1, -15,-15,-15,-15, 3);
-        encoderDrive(1, -30, 30, -30, 30, 3);
-        grabberTilt.setPosition(.8);
-        grabber2.setPosition(.5);
+        encoderDrive(1, -55, 55, -55, 55, 3);
         sleep(5000);
 
     }

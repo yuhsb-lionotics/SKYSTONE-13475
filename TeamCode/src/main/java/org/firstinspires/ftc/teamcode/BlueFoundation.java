@@ -60,24 +60,18 @@ public class BlueFoundation extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1.0,35.0,35.0,35.0,35.0, 5.0);
+        encoderDrive(1, 5, 5, 5, 5, 3);
         encoderDrive(1.0, -20, 20, 20, -20, 3.0);
-        encoderDrive(1.0, -10, -10, -10, -10, 3);
+        encoderDrive(1.0,30.0,-30.0,30.0,-30.0, 5.0);
+        encoderDrive(1.0, -7, -7, -7, -7, 3);
         encoderDrive(1, 5,-5,5,-5, 3);
+        encoderDrive(1, -7,-7,-7,7, 3);
         grabberTilt.setPosition(.3);
         sleep(500);
-        encoderDrive(1.0, -50.0, 50.0,-50.0, 50.0, 3.0);
-        encoderDrive(1.0, 70, -70, -70, 70, 3.0);
-
-        encoderDrive(1, 50, -50, -50, 50, 3);
-
-        grabberTilt.setPosition(.7);
-        encoderDrive(1.0, -40, 40, -40, 40, 3);
-
+        encoderDrive(1, -55, 55, -55, 55, 3);
         grabberTilt.setPosition(.8);
-        grabber2.setPosition(.5);
         sleep(5000);
-
+        encoderDrive(1, 40, 40, 40, 40, 3);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
