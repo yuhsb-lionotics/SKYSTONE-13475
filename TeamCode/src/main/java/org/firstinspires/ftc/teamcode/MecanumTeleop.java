@@ -75,25 +75,16 @@ public class MecanumTeleop extends LinearOpMode {
                 speed.myStop();
             }
             peretz.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
-            if(gamepad2.dpad_left) {
-                grabber1.setPosition(.7);
-                grabber2.setPosition(.7);
-            }
-            if(gamepad2.dpad_right){
-                grabber1.setPosition(.4);
-                grabber2.setPosition(.4);
-            }
-            if(gamepad2.dpad_up){
-                grabberTilt.setPosition(.7);
-            }
-            if(gamepad2.dpad_down){
-                grabberTilt.setPosition(.3);
-            }
 
+            //open/close block claw
+            if(gamepad1.dpad_left) { grabber1.setPosition(.7); grabber2.setPosition(.7); }
+            else if(gamepad1.dpad_right){ grabber1.setPosition(.4); grabber2.setPosition(.4); }
+            /*else if(gamepad2.dpad_left) { grabber1.setPosition(.7); grabber2.setPosition(.7); }
+            else if(gamepad2.dpad_right){ grabber1.setPosition(.4); grabber2.setPosition(.4); }*/
 
-
-
-
+            //up/down foundation grabber
+            if(gamepad2.dpad_up){ grabberTilt.setPosition(.7); }
+            if(gamepad2.dpad_down){ grabberTilt.setPosition(.3); }
         }
     }
 
@@ -116,11 +107,11 @@ public class MecanumTeleop extends LinearOpMode {
                 grabberTilt.setDirection(Servo.Direction.FORWARD);
                 peretz.setDirection(DcMotorSimple.Direction.FORWARD);
 
-
-                //grabberTilt.setPosition(.8);
-                //grabber1.setPosition(0);
-                //grabber2.setPosition(0);
-
+                /*
+                grabberTilt.setPosition(.8);
+                grabber1.setPosition(0);
+                grabber2.setPosition(0);
+                */
             }
 
             private void rightTrigger ( double triggerValue){
