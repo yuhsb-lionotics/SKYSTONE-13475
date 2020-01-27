@@ -79,8 +79,8 @@ public class MecanumTeleop extends LinearOpMode {
             //open/close block claw
             if(gamepad1.dpad_left) { grabber1.setPosition(.7); grabber2.setPosition(.7); }
             else if(gamepad1.dpad_right){ grabber1.setPosition(.4); grabber2.setPosition(.4); }
-            else if(gamepad2.dpad_left) { grabber1.setPosition(.7); grabber2.setPosition(.7); }
-            else if(gamepad2.dpad_right){ grabber1.setPosition(.4); grabber2.setPosition(.4); }
+            /*else if(gamepad2.dpad_left) { grabber1.setPosition(.7); grabber2.setPosition(.7); }
+            else if(gamepad2.dpad_right){ grabber1.setPosition(.4); grabber2.setPosition(.4); }*/
 
             //up/down foundation grabber
             if(gamepad2.dpad_up){ grabberTilt.setPosition(.7); }
