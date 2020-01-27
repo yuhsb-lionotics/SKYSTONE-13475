@@ -365,7 +365,7 @@ public class BlueSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,18,18,18,18,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,22,22,22,22,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -478,8 +478,7 @@ public class BlueSkystone extends LinearOpMode {
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,13,-15,-15,15,0,5);//strafe right was .7
-
+                encoderDrive(1,15,-15,-15,15,0,5);//strafe right was .7
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
 
@@ -515,7 +514,8 @@ public class BlueSkystone extends LinearOpMode {
                // encoderDrive(1, 0, 0, 0, 0,10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,0,3);//strafe left
+                //encoderDrive(1,22,22,22,22,0,3);//strafe left
+                encoderDrive(1, 22, -22, -22, 22, 0, 3); //move in direction ofadb  bridge
             }
             /*else {
                 positionSkystone = "right";

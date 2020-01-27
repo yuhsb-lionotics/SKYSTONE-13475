@@ -60,19 +60,16 @@ public class BlueFoundation extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1.0,30.0,30.0,30.0,30.0, 5.0);
-        encoderDrive(1.0, -20, 20, 20, -20, 3.0);
-        encoderDrive(1.0, -7, -7, -7, -7, 3);
-        encoderDrive(1, 10,-10,10,-10, 3);
-        encoderDrive(1, -7,-7,-7,7, 3);
-        grabberTilt.setPosition(.3);
+        encoderDrive(1.0,30.0,30.0,30.0,30.0, 5.0); //forward
+        encoderDrive(1.0, -18, 18, 18, -18, 3.0); //turns
+        encoderDrive(1.0, -20, -20, -20, -20, 5.0); //left
+        encoderDrive(1, 10,-10,10,-10, 3); //forward
+        //encoderDrive(1, -10,-10,-10,-10, 3); //left more
+        grabberTilt.setPosition(.3); //grabs
         sleep(500);
-        encoderDrive(1, -27.5, 27.5, -27.5, 27.5, 3);
-        encoderDrive(1, 5, 5, 5,5, 3);
-        encoderDrive(1, -27.5, 27.5, -27.5, 27.5,3);
-        grabberTilt.setPosition(.8);
+        encoderDrive(1, -60, 60, -60, 60, 3); //drags foundation back
+        grabberTilt.setPosition(.8); //ungrabs
         sleep(500);
-        encoderDrive(1, -5, 5, -5, 5,3);
         encoderDrive(1, 30, 30, 30, 30, 3);
         encoderDrive(1, -10, 10, 10, -10,3);
         encoderDrive(1, 35, 35, 35, 35, 3);
