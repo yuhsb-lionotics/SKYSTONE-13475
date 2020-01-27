@@ -29,14 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.vuforia.CameraDevice;
+
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -47,6 +48,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
+import org.opencv.android.JavaCameraView;
+import android.hardware.Camera;
+//import android.hardware.camera2.CameraDevice;
 
 
 import java.util.ArrayList;
@@ -57,7 +61,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.XYZ;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesOrder.YZX;
 import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.EXTRINSIC;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
-
 
 /**
  *
@@ -94,7 +97,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
-@Autonomous(name="SKYSTONE Blue", group ="Autonomous")
+@Autonomous(name="SKYSTONE RED", group ="Autonomous")
 public class RedSkystone extends LinearOpMode {
 
     //The following are addition made by yours truly:
@@ -102,20 +105,22 @@ public class RedSkystone extends LinearOpMode {
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
-    private DcMotor peretz=null;
+    private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
     public Servo foundation=null;
+
     int jerry=0;
-    boolean right = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1220;    // listen up. our motors are really 1440 but i coded with 1220. change it to 1440 in the future
+    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
+
+
 
 
     // IMPORTANT:  For Phone Camera, set 1) the camera source and 2) the orientation, based on how your phone is mounted:
@@ -173,6 +178,7 @@ public class RedSkystone extends LinearOpMode {
     public void runOpMode() {
         telemetry.addData("Initializing", "DO NOT TOUCH");
         telemetry.update();
+
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -183,6 +189,8 @@ public class RedSkystone extends LinearOpMode {
 
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraDirection = CAMERA_CHOICE;
+
+
 
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
@@ -322,7 +330,6 @@ public class RedSkystone extends LinearOpMode {
         if (PHONE_IS_PORTRAIT) {
             phoneXRotate = 90;
         }
-        
 
         // Next, translate the camera lens to where it is on the robot.
         // In this example, it is centered (left to right), but forward of the middle of the robot, and above ground level.
@@ -344,6 +351,7 @@ public class RedSkystone extends LinearOpMode {
         // This sequence is used to enable the new remote DS Camera Preview feature to be used with this sample.
         // CONSEQUENTLY do not put any driving commands in this loop.
         // To restore the normal opmode structure, just un-comment the following line:
+        //javaCameraView.turnOnTheFlash();
 
         CameraDevice.getInstance().setFlashTorchMode(true);
         setUp();
@@ -357,7 +365,7 @@ public class RedSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,18,18,18,18 ,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,18,18,18,18,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -388,7 +396,7 @@ public class RedSkystone extends LinearOpMode {
             }
 
             // Provide feedback as to where the robot is located (if we know).
-            String positionSkystone = "";
+            String positionSkystone = "";//ignore
             if (targetVisible) {
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation(); /*
@@ -397,8 +405,8 @@ public class RedSkystone extends LinearOpMode {
 
 
 
-                double xPosition = translation.get(0) / mmPerInch;
-                double yPosition = translation.get(1)/ mmPerInch;
+                    double xPosition = translation.get(0) / mmPerInch;
+                    double yPosition = translation.get(1)/ mmPerInch;
 //                    telemetry.addData("xPosition", xPosition);
 //                    telemetry.update();
 //                    telemetry.addData("yPosition", yPosition);
@@ -414,7 +422,7 @@ public class RedSkystone extends LinearOpMode {
 
                 } else {
                     double xDistanceRide = xPosition + 15;
-                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide,0, 1);
+                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 0,1);
                 }
 
 
@@ -422,12 +430,6 @@ public class RedSkystone extends LinearOpMode {
 
                 //Change in Y
                 double yDistanceRide = yPosition;
-                if(yPosition<=-20.0){
-                    right=true;
-                    telemetry.addData("block is right","");
-                    telemetry.update();
-                    sleep(2000);
-                }
                 if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
                     telemetry.addData("no motion",1);
                     telemetry.update();
@@ -438,14 +440,14 @@ public class RedSkystone extends LinearOpMode {
                 }
 
                 else if (yPosition <= -.5) { //move left
-                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
+                   // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
                     telemetry.addData("move left",1);
                     telemetry.update();
                 }
                 else if (yPosition > .5){ // move right
-                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
+                   // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
                     telemetry.addData("move right",1);
                     telemetry.update();
                 }
@@ -464,8 +466,8 @@ public class RedSkystone extends LinearOpMode {
 
 
                 // express the rotation of the robot in degrees.
-                // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+               // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+               // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             }
             jerry = jerry +1;
             if(jerry==30000) {
@@ -473,33 +475,31 @@ public class RedSkystone extends LinearOpMode {
                 telemetry.update();
 
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                //encoderDrive(1, 3, 3, 3, 3,0, 5);
+                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,15,-15,-15,15,0,5);//strafe right was .7
+                encoderDrive(1,13,-15,-15,15,0,5);//strafe right was .7
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
-                //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                //sleep(100);
-                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5 12
-                encoderDrive(1,60,60,60,60,0,5);
-                //encoderDrive(1, 0, 0, 0, 0,3, 5);
+
+                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5
+                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
+                encoderDrive(1,-60,-60,-60,-60,0,5);
+
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                //encoderDrive(1, 0, 0, 0, 0,-3, 5);
+                //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDED
+                encoderDrive(1,86,86,86,86,0,7);//move to 2nd block
 
-                encoderDrive(1,-86,-86,-86,-86,0,5);
+               //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
-                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
-
-
-            }
-            if(jerry==30000){
+            //}
+            //if(jerry==30000){
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
-
+                //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(.7);
                 grabber2.setPosition(.7);
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
@@ -507,13 +507,15 @@ public class RedSkystone extends LinearOpMode {
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
-                //encoderDrive(1, 0, 0, 0, 0,-3, 5);
+                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
+                //sleep(100);
                 encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
-                //encoderDrive(1, 0, 0, 0, 0,3, 5);
-                encoderDrive(1,85,85,85,85,0,5);
+                encoderDrive(1,-85,-85,-85,-85,0,5);
+
+               // encoderDrive(1, 0, 0, 0, 0,10, 5);
                 grabber1.setPosition(1);
                 grabber2.setPosition(1);
-                encoderDrive(1,-22,-22,-22,-22,0,3);//strafe left
+                encoderDrive(1,22,22,22,22,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
@@ -537,13 +539,11 @@ public class RedSkystone extends LinearOpMode {
 
     }
     private void setUp() {
-
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
         peretz = hardwareMap.get(DcMotor.class, "peretz");
-
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
         foundation= hardwareMap.servo.get("grabber_tilt");
@@ -559,7 +559,9 @@ public class RedSkystone extends LinearOpMode {
         grabber2.setDirection(Servo.Direction.REVERSE);
 
 
-
+        // Send telemetry message to signify robot waiting;
+        telemetry.addData("Status", "Resetting Encoders");
+        telemetry.update();
 
         FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -573,11 +575,14 @@ public class RedSkystone extends LinearOpMode {
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        foundation.setPosition(1);
+
         grabber1.setPosition(0);
         grabber2.setPosition(0);
+        foundation.setPosition(1);
+
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
+
 
     }
 
@@ -656,4 +661,5 @@ public class RedSkystone extends LinearOpMode {
             peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
+
 }
