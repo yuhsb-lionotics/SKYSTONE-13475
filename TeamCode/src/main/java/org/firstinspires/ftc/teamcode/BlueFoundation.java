@@ -26,9 +26,11 @@ public class BlueFoundation extends LinearOpMode{
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
+    private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    public Servo grabberTilt=null;
+    private Servo grabberTilt=null;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -60,33 +62,34 @@ public class BlueFoundation extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1, 5, 5, 5, 5, 3);
-        encoderDrive(1.0, -20, 20, 20, -20, 3.0);
-        encoderDrive(1.0,30.0,-30.0,30.0,-30.0, 5.0);
-        encoderDrive(1.0, -7, -7, -7, -7, 3);
-        encoderDrive(1, 5,-5,5,-5, 3);
-        encoderDrive(1, -7,-7,-7,7, 3);
-        grabberTilt.setPosition(.3);
+        encoderDrive(1.0, -70, 30,30, -70,0, 5.0);
+        encoderDrive(1, -8, -8, -8, -8, 0, 3);
+        grabberTilt.setPosition(.2);
         sleep(500);
-        encoderDrive(1, -55, 55, -55, 55, 3);
+        encoderDrive(1.0, 50.0, -50.0,-50.0, 50.0, 0,3.0);
         grabberTilt.setPosition(.8);
-        sleep(5000);
-        encoderDrive(1, 40, 40, 40, 40, 3);
+        sleep(500);
+        encoderDrive(1.0, 60.0, 60.0,60.0, 60.0, 0,3.0);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
-        grabber1 = hardwareMap.servo.get("grabber1");
-        grabber2 = hardwareMap.servo.get("grabber2");
-        grabberTilt = hardwareMap.servo.get("grabber_tilt");
-        //flippy= hardwareMap.servo.get("flippy_flipper");
+        peretz = hardwareMap.get(DcMotor.class, "peretz");
+        grabber1= hardwareMap.servo.get("grabber1");
+        grabber2= hardwareMap.servo.get("grabber2");
+       grabberTilt= hardwareMap.servo.get("grabber_tilt");
+
+
 
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         BR.setDirection(DcMotor.Direction.FORWARD);
+        peretz.setDirection(DcMotor.Direction.FORWARD);
+        grabber1.setDirection(Servo.Direction.FORWARD);
+        grabber2.setDirection(Servo.Direction.REVERSE);
 
 
         // Send telemetry message to signify robot waiting;
@@ -97,45 +100,55 @@ public class BlueFoundation extends LinearOpMode{
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        peretz.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        grabberTilt.setPosition(1);
+
         grabber1.setPosition(0);
         grabber2.setPosition(0);
+        grabberTilt.setPosition(1);
+
+        telemetry.addData("Game Time", "over 9000");
+        telemetry.update();
 
     }
 
     public void encoderDrive(double speed,
-                             double FLin, double FRin, double BLin, double BRin,
+                             double FLin, double FRin, double BLin, double BRin, double peretzz,
                              double timeoutS) {
         int newFLTarget;
         int newFRTarget;
         int newBLTarget;
         int newBRTarget;
+        int newPeretzTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
 
             // Determine new target position, and pass to motor controller
-            newFLTarget = FR.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
-            newFRTarget = FL.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
+            newFLTarget = FL.getCurrentPosition() + (int) (FLin * COUNTS_PER_INCH);
+            newFRTarget = FR.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
             newBLTarget = BL.getCurrentPosition() + (int) (BLin * COUNTS_PER_INCH);
             newBRTarget = BR.getCurrentPosition() + (int) (BRin * COUNTS_PER_INCH);
+            newPeretzTarget = peretz.getCurrentPosition() + (int) (peretzz*COUNTS_PER_INCH);
 
-            FR.setTargetPosition(newFLTarget);
-            FL.setTargetPosition(newFRTarget);
+            FR.setTargetPosition(newFRTarget);
+            FL.setTargetPosition(newFLTarget);
             BL.setTargetPosition(newBLTarget);
             BR.setTargetPosition(newBRTarget);
+            peretz.setTargetPosition(newPeretzTarget);
 
             // Turn On RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -143,6 +156,7 @@ public class BlueFoundation extends LinearOpMode{
             FL.setPower(Math.abs(speed));
             BL.setPower(Math.abs(speed));
             BR.setPower(Math.abs(speed));
+            peretz.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -152,7 +166,7 @@ public class BlueFoundation extends LinearOpMode{
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    (FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())) {
+                    ((FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())||peretz.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d :%7d", newFLTarget, newFRTarget, newBLTarget, newFLTarget);
@@ -169,13 +183,16 @@ public class BlueFoundation extends LinearOpMode{
             FL.setPower(0);
             BL.setPower(0);
             BR.setPower(0);
+            peretz.setPower(0);
 
             // Turn off RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
+
 
 }
