@@ -97,7 +97,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
+<<<<<<< HEAD
 @Autonomous(name="SKYSTONE RED", group ="Autonomous")
+=======
+@Autonomous(name="SKYSTONE Red", group ="Autonomous")
+>>>>>>> 4efc24cc10bd2ed783aa5dae459ffc0eebb9c013
 public class RedSkystone extends LinearOpMode {
 
     //The following are addition made by yours truly:
@@ -478,7 +482,11 @@ public class RedSkystone extends LinearOpMode {
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
+<<<<<<< HEAD
                 encoderDrive(1,13,-15,-15,15,0,5);//strafe right was .7
+=======
+                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was .7
+>>>>>>> 4efc24cc10bd2ed783aa5dae459ffc0eebb9c013
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);

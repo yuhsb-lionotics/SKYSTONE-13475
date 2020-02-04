@@ -94,7 +94,11 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 
+<<<<<<< HEAD
 @Autonomous(name="SKYSTONE BLUE", group ="Autonomous")
+=======
+@Autonomous(name="SKYSTONE Blue", group ="Autonomous")
+>>>>>>> 4efc24cc10bd2ed783aa5dae459ffc0eebb9c013
 public class BlueSkystone extends LinearOpMode {
 
     //The following are addition made by yours truly:
@@ -476,7 +480,11 @@ public class BlueSkystone extends LinearOpMode {
                 //encoderDrive(1, 3, 3, 3, 3,0, 5);
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
+<<<<<<< HEAD
                 encoderDrive(1,15,-15,-15,15,0,5);//strafe right was .7
+=======
+                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was .7
+>>>>>>> 4efc24cc10bd2ed783aa5dae459ffc0eebb9c013
 
                 grabber1.setPosition(.4);
                 grabber2.setPosition(.4);
