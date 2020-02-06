@@ -172,6 +172,7 @@ public class BlueSkystone extends LinearOpMode {
     @Override
     public void runOpMode() {
         telemetry.addData("Initializing", "DO NOT TOUCH");
+        telemetry.addData("MAKE SURE ROBOT IS ALIGNED","");
         telemetry.update();
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
@@ -472,48 +473,41 @@ public class BlueSkystone extends LinearOpMode {
                 telemetry.addData("out of loop", 0);
                 telemetry.update();
 
+                grabber1.setPosition(.3);
+                grabber2.setPosition(.3);
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, 3, 3, 3, 3,0, 5);
+                encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
+                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was .7
-
-                grabber1.setPosition(.4);
-                grabber2.setPosition(.4);
-                //encoderDrive(1, 0, 0, 0, 0,-3, 5);
-                //sleep(100);
+                sleep(300);
                 encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5 12
-                encoderDrive(1,60,60,60,60,0,5);
+                encoderDrive(1,55,55,55,55,0,5);
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
-                grabber1.setPosition(1);
-                grabber2.setPosition(1);
+                grabber1.setPosition(.3);
+                grabber2.setPosition(.3);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
 
-                encoderDrive(1,-86,-86,-86,-86,0,5);
+                encoderDrive(1,-81,-81,-81,-81,0,5);
 
                 //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
 
             }
             if(jerry==30000){
+                encoderDrive(1 ,17,-17,-17,17,0,5);//strafe right was .7
+                encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
 
-                grabber1.setPosition(.7);
-                grabber2.setPosition(.7);
-                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
-                encoderDrive(1 ,32,-32,-32,32,0,5);//strafe right was .7
-
-                grabber1.setPosition(.4);
-                grabber2.setPosition(.4);
-                //encoderDrive(1, 0, 0, 0, 0,-3, 5);
+                sleep(300);
                 encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 encoderDrive(1,85,85,85,85,0,5);
-                grabber1.setPosition(1);
-                grabber2.setPosition(1);
-                encoderDrive(1,-22,-22,-22,-22,0,3);//strafe left
+                grabber1.setPosition(.1);
+                grabber2.setPosition(.1);
+                encoderDrive(1,-25,-25,-25,-25,0,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
@@ -524,8 +518,7 @@ public class BlueSkystone extends LinearOpMode {
 
         }
 
-        telemetry.addData("out of loop",1);
-        telemetry.update();
+
 
         // Disable Tracking when we are done;
         //targetsSkyStone.deactivate();
@@ -574,8 +567,8 @@ public class BlueSkystone extends LinearOpMode {
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         foundation.setPosition(1);
-        grabber1.setPosition(0);
-        grabber2.setPosition(0);
+        grabber1.setPosition(.01);
+        grabber2.setPosition(.01);
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
 
