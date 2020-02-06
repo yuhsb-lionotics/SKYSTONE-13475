@@ -73,13 +73,28 @@ public class RedFoundation extends LinearOpMode{
         encoderDrive(1, -45,45, -45, 45,3);
         grabber2.setPosition(.5);
         sleep(5000);
-*/
-        encoderDrive(1.0, 80, 70,70, 80, 0,5.0);
+*/      encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
+        grabber1.setPosition(.3);
+        grabber2.setPosition(.3);
+        sleep(300);
+        encoderDrive(1, -22, -22, -22, -22, 0, 3);
+        encoderDrive(1.0, 13, -13,-13, 13,0, 5.0);
+        //grabberTilt.setPosition(.2);
+        encoderDrive(1, -0, -0, -0, -0, -13, 3);
+        sleep(5000);
+        grabber1.setPosition(.1);
+        grabber2.setPosition(.1);
+        encoderDrive(1, 3, 3,3, 3, 0, 3);
+        encoderDrive(1, -3, -3, -3, -3, 0, 3);
+        encoderDrive(1, 3, 3,3, 3, 0, 3);
+        encoderDrive(1, -3, -3, -3, -3, 0, 3);
+        encoderDrive(1, -100.0, 100.0,100.0, -100.0, 0,10.0);
+        //grabberTilt.setPosition(.8);
+        encoderDrive(1, -0, -0, -0, -0, 10, 3);
         sleep(500);
-        grabberTilt.setPosition(.2);
-        encoderDrive(1.0, -70.0, 70.0,70.0, 70.0, 0,3.0);
-        grabberTilt.setPosition(.8);
-        encoderDrive(1.0, -70.0, -70.0,-70.0, -70.0, 0,3.0);
+        encoderDrive(1.0, -7, 7,-7, 7,0, 5.0);
+        encoderDrive(1.0, 70.0, 70.0,70.0, 70.0, 0,3.0);
+        encoderDrive(1.0, 0, 0,0, 0,-6, 5.0);
 
 
 
