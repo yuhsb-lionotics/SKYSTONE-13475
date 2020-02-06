@@ -477,19 +477,20 @@ public class BlueSkystone extends LinearOpMode {
                 grabber2.setPosition(.3);
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, 3, 3, 3, 3,0, 5);
-                encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
+                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was
                 encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 sleep(300);
-                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5 12
+                //encoderDrive(1,0,0,0,0,16,0);
+                encoderDrive(1,-19,19,19,-19,16,3);//strafe left was .5 12
                 encoderDrive(1,55,55,55,55,0,5);
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 grabber1.setPosition(.3);
                 grabber2.setPosition(.3);
                 //encoderDrive(1, 0, 0, 0, 0,-3, 5);
 
-                encoderDrive(1,-81,-81,-81,-81,0,5);
+                encoderDrive(1,-81,-81,-81,-81,-16,5);
 
                 //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
@@ -502,12 +503,12 @@ public class BlueSkystone extends LinearOpMode {
                 grabber2.setPosition(.6);
 
                 sleep(300);
-                encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
+                encoderDrive(1,-47,47,47,-47,16,3);//strafe left was .7
                 //encoderDrive(1, 0, 0, 0, 0,3, 5);
                 encoderDrive(1,85,85,85,85,0,5);
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
-                encoderDrive(1,-25,-25,-25,-25,0,3);//strafe left
+                encoderDrive(1,-25,-25,-25,-25,-16,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
