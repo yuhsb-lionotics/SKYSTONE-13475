@@ -471,51 +471,39 @@ public class RedSkystone extends LinearOpMode {
             }
             jerry = jerry +1;
             if(jerry==30000) {
-                telemetry.addData("out of loop", 0);
+                telemetry.addData("Picking up block...", 0);
                 telemetry.update();
 
+                grabber1.setPosition(.3);
+                grabber2.setPosition(.3);
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
+                encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
+                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was .7
-
-                grabber1.setPosition(.4);
-                grabber2.setPosition(.4);
-
-                encoderDrive(1,-19,19,19,-19,0,3);//strafe left was .5
-                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
-                encoderDrive(1,-60,-60,-60,-60,0,5);
-
-                grabber1.setPosition(1);
-                grabber2.setPosition(1);
-                //encoderDrive(1,22,22,22,22,0,3);//strafe left ADDED
-                encoderDrive(1,86,86,86,86,0,7);//move to 2nd block
+                sleep(300);
+                encoderDrive(1,-19,19,19,-19,16,3);//strafe left was .5
+                encoderDrive(1,-55,-55,-55,-55,0,5);
+                grabber1.setPosition(.3);
+                grabber2.setPosition(.3);
+                encoderDrive(1,85,85,85,85,-16,7);//move to 2nd block
 
                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
             //}
             //if(jerry==30000){
+                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was
+                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
-                //encoderDrive(1, -19, 19, -19, 19 , 0,5);//was .5
-                //encoderDrive(1, 0, 0, 0, 0,3, 5);
-                grabber1.setPosition(.7);
-                grabber2.setPosition(.7);
-                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5);
-                encoderDrive(1 ,32,-32,-32,32,0,5);//strafe right was .7
 
-                grabber1.setPosition(.4);
-                grabber2.setPosition(.4);
-                //encoderDrive(1, 0, 0, 0, 0,-10, 5);
-                //sleep(100);
-                encoderDrive(1,-47,47,47,-47,0,3);//strafe left was .7
+                sleep(300);
+                encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
                 encoderDrive(1,-85,-85,-85,-85,0,5);
-
-               // encoderDrive(1, 0, 0, 0, 0,10, 5);
-                grabber1.setPosition(1);
-                grabber2.setPosition(1);
-                encoderDrive(1,22,22,22,22,0,3);//strafe left
+                grabber1.setPosition(.1);
+                grabber2.setPosition(.1);
+                encoderDrive(1,25,25,25,25,-16,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";
@@ -548,8 +536,6 @@ public class RedSkystone extends LinearOpMode {
         grabber2= hardwareMap.servo.get("grabber2");
         foundation= hardwareMap.servo.get("grabber_tilt");
 
-
-
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
@@ -575,10 +561,9 @@ public class RedSkystone extends LinearOpMode {
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        grabber1.setPosition(0);
-        grabber2.setPosition(0);
         foundation.setPosition(1);
+        grabber1.setPosition(.01);
+        grabber2.setPosition(.01);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();

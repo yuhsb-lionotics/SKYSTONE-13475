@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="REd Foundation", group ="Autonomous")
+@Autonomous(name="Red Foundation", group ="Autonomous")
 public class RedFoundation extends LinearOpMode{
 
     //The following are addition made by your's truly:
