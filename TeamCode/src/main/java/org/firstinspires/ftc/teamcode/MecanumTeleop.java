@@ -75,23 +75,14 @@ public class MecanumTeleop extends LinearOpMode {
                 speed.myStop();
             }
             peretz.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
-            if(gamepad2.dpad_left) {//close
+            if(gamepad2.dpad_down) {//close
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
             }
-            if(gamepad2.dpad_right){
+            if(gamepad2.dpad_up){
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
             }
-            if(gamepad2.dpad_up){
-                grabberTilt.setPosition(.99);
-            }
-            if(gamepad2.dpad_down){
-                grabberTilt.setPosition(.3);
-            }
-
-
-
 
 
         }
