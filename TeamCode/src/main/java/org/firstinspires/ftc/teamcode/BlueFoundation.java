@@ -118,8 +118,8 @@ public class BlueFoundation extends LinearOpMode{
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        grabber1.setPosition(0);
-        grabber2.setPosition(0);
+        grabber1.setPosition(.1);
+        grabber2.setPosition(.1);
         grabberTilt.setPosition(1);
 
         telemetry.addData("Game Time", "over 9000");

@@ -484,10 +484,10 @@ public class RedSkystone extends LinearOpMode {
                 grabber2.setPosition(.6);
                 sleep(300);
                 encoderDrive(1,-19,19,19,-19,16,3);//strafe left was .5
-                encoderDrive(1,-55,-55,-55,-55,0,5);
+                encoderDrive(1,-65,-65,-65,-65,0,5);
                 grabber1.setPosition(.3);
                 grabber2.setPosition(.3);
-                encoderDrive(1,85,85,85,85,-16,7);//move to 2nd block
+                encoderDrive(1,95,95,95,95,-16,7);//move to 2nd block
 
                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
@@ -500,10 +500,10 @@ public class RedSkystone extends LinearOpMode {
 
                 sleep(300);
                 encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
-                encoderDrive(1,-85,-85,-85,-85,0,5);
+                encoderDrive(1,-95,-95,-95,-95,0,5);
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
-                encoderDrive(1,25,25,25,25,-16,3);//strafe left
+                encoderDrive(1,20,20,20,20,-16,3);//strafe left
             }
             /*else {
                 positionSkystone = "right";

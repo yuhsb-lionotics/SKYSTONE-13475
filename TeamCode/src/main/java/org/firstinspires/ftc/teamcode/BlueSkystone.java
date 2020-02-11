@@ -483,7 +483,7 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 sleep(300);
-                encoderDrive(1,-19,19,19,-19,16,3);//strafe left was .5 12
+                encoderDrive(1,-20,20,20,-20,16,3);//strafe left was .5 12
                 encoderDrive(1,55,55,55,55,0,5);
                 grabber1.setPosition(.3);
                 grabber2.setPosition(.3);
@@ -493,7 +493,7 @@ public class BlueSkystone extends LinearOpMode {
 
             }
             if(jerry==30000){
-                encoderDrive(1 ,17,-17,-17,17,0,5);//strafe right was .7
+                encoderDrive(1 ,18,-18,-18,18,0,5);//strafe right was .7
                 encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
