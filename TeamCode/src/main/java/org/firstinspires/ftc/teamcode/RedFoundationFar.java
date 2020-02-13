@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Blue Foundation", group ="Autonomous")
-public class BlueFoundation extends LinearOpMode{
+@Autonomous(name="Red Foundation Parks Far", group ="Autonomous")
+public class RedFoundationFar extends LinearOpMode{
 
     //The following are addition made by your's truly:
     private DcMotor FR = null;
@@ -29,8 +29,7 @@ public class BlueFoundation extends LinearOpMode{
     private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    private Servo grabberTilt=null;
-
+    public Servo grabberTilt=null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -60,21 +59,25 @@ public class BlueFoundation extends LinearOpMode{
  *             case STOP:encodeDrive(0,0,0,0);
  *
  */
-
-        //CODE GOES HERE- THANK YOU FOR THE INDICATION:
         encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
-        encoderDrive(1, 15, 15, 15, 15, 0, 3);
+        encoderDrive(1, -15, -15, -15, -15, 0, 3);
         encoderDrive(1.0, 13, -13,-13, 13,0, 5.0);
         //grabberTilt.setPosition(.2);
         encoderDrive(1, -0, -0, -0, -0, -13, 3);
-        encoderDrive(1, -130.0, 130.0,130.0, -130.0, 0,10.0);
+        encoderDrive(1, -35.0, 35.0,35.0, -35.0, 0,10.0);
+        encoderDrive(1, -20, -20, -20, 20, 0, 3);
+        encoderDrive(1, -45, 45, 45, -45, 0, 3);
         //grabberTilt.setPosition(.8);
         encoderDrive(1, -0, -0, -0, -0, 10, 3);
         sleep(500);
-        encoderDrive(1.0, -7, 7,-7, 7,0, 5.0);
-        encoderDrive(1.0, -70.0, -70.0,-70.0, -70.0, 0,3.0);
+        encoderDrive(1, -1, 1, -1, 1, 0,3);
+        encoderDrive(1.0, 33.0, 33.0,33.0, 33.0, 0,3.0);
+        encoderDrive(1, 40,-40,-40, 40, 0,3);
+        encoderDrive(1, 30, 30, 30, 30, 0,3);
         encoderDrive(1.0, 0, 0,0, 0,-6, 5.0);
     }
+
+
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
@@ -83,7 +86,7 @@ public class BlueFoundation extends LinearOpMode{
         peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
-       grabberTilt= hardwareMap.servo.get("grabber_tilt");
+        grabberTilt= hardwareMap.servo.get("grabber_tilt");
 
 
 
@@ -119,7 +122,6 @@ public class BlueFoundation extends LinearOpMode{
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
-
     }
 
     public void encoderDrive(double speed,
