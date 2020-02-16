@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Red Foundation", group ="Autonomous")
-public class RedFoundation extends LinearOpMode{
+@Autonomous(name="Just Park Blue Foundation", group ="Autonomous")
+public class JustParkBlue extends LinearOpMode{
 
     //The following are addition made by your's truly:
     private DcMotor FR = null;
@@ -29,7 +29,8 @@ public class RedFoundation extends LinearOpMode{
     private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    public Servo grabberTilt=null;
+    private Servo grabberTilt=null;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -59,19 +60,10 @@ public class RedFoundation extends LinearOpMode{
  *             case STOP:encodeDrive(0,0,0,0);
  *
  */
-        encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
-        encoderDrive(1, -22, -22, -22, -22, 0, 3);
-        encoderDrive(1.0, 13, -13,-13, 13,0, 5.0);
-        encoderDrive(1, -0, -0, -0, -0, -13, 3);
-        encoderDrive(1, -70, 70,70, -70, 0,10.0);
-        //grabberTilt.setPosition(.8);
-        encoderDrive(1, -0, -0, -0, -0, 10, 3);
-        sleep(500);
-        encoderDrive(1, -7, 7, -7, 7, 0,3);
-        encoderDrive(1.0, 50.0, 50.0,50.0, 50.0, -6,3.0);
+
+        //CODE GOES HERE- THANK YOU FOR THE INDICATION:
+        encoderDrive(1.0, 60, -60,-60, 60,0, 5.0);
     }
-
-
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
@@ -116,6 +108,7 @@ public class RedFoundation extends LinearOpMode{
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
+
     }
 
     public void encoderDrive(double speed,

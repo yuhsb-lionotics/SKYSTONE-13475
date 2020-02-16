@@ -365,7 +365,7 @@ public class RedSkystone extends LinearOpMode {
         // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
         // Tap the preview window to receive a fresh image.
 
-        encoderDrive(1,18,18,18,18,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,19,19,19,19,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -470,7 +470,7 @@ public class RedSkystone extends LinearOpMode {
                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             }
             jerry = jerry +1;
-            if(jerry==30000) {
+            if((jerry==30000)) {
                 telemetry.addData("Picking up block...", 0);
                 telemetry.update();
 
@@ -479,7 +479,7 @@ public class RedSkystone extends LinearOpMode {
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
+                encoderDrive(.7,5,-5,-5,5,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 sleep(300);
@@ -493,8 +493,8 @@ public class RedSkystone extends LinearOpMode {
 
             //}
             //if(jerry==30000){
-                encoderDrive(1,18,-18,-18,18,0,5);//strafe right was
-                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
+                encoderDrive(1,16,-16,-16,16,0,5);//strafe right was
+                encoderDrive(.7,8,-8,-8,8,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
 
@@ -504,6 +504,7 @@ public class RedSkystone extends LinearOpMode {
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
                 encoderDrive(1,20,20,20,20,-16,3);//strafe left
+                sleep(5000);
             }
             /*else {
                 positionSkystone = "right";

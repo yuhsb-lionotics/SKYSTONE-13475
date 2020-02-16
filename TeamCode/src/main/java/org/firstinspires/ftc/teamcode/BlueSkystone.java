@@ -470,16 +470,17 @@ public class BlueSkystone extends LinearOpMode {
                 // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             }
             jerry = jerry +1;
-            if(jerry==30000) {
+            if(jerry==40000) {
                 telemetry.addData("Picking up...", 0);
                 telemetry.update();
 
                 grabber1.setPosition(.3);
                 grabber2.setPosition(.3);
+               //this line is cursed
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, 1, 1, 1, 1,0, 5);
                 encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                encoderDrive(.5,5,-5,-5,5,0,5);//slow strafe right
+                encoderDrive(.5,7,-7,-7,7,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 sleep(300);
@@ -492,7 +493,7 @@ public class BlueSkystone extends LinearOpMode {
                 //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
             }
-            if(jerry==30000){
+            if(jerry==40000){
                 encoderDrive(1 ,18,-18,-18,18,0,5);//strafe right was .7
                 encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
                 grabber1.setPosition(.6);
@@ -504,6 +505,7 @@ public class BlueSkystone extends LinearOpMode {
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
                 encoderDrive(1,-25,-25,-25,-25,-16,3);//strafe left
+                sleep(5000);
             }
             /*else {
                 positionSkystone = "right";
