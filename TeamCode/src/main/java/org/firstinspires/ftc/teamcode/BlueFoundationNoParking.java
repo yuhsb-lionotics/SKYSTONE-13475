@@ -18,7 +18,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Blue Foundation Parks Far", group ="Autonomous")
+@Autonomous(name="Blue Foundation No Park", group ="Autonomous")
 public class BlueFoundationNoParking extends LinearOpMode{
 
     //The following are addition made by your's truly:
@@ -60,20 +60,24 @@ public class BlueFoundationNoParking extends LinearOpMode{
  *
  */
 
+//        encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
+//        encoderDrive(1, 20, 20, 20, 20, 0, 3);
+//        encoderDrive(1.0, 20, -20,-20, 20,0, 5.0);
+//        //grabberTilt.setPosition(.2);
+//        encoderDrive(1, -0, -0, -0, -0, -13, 3);
+//        encoderDrive(1, -95, 95,95, -95, 0,10.0);
+//        encoderDrive(1, -70, 70, -70, 70, 0, 3);
+//        encoderDrive(1, -0, -0, -0, -0, 10, 3);
+//        sleep(500);
         encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
-        encoderDrive(1, 22, 22, 22, 22, 0, 3);
-        encoderDrive(1.0, 13, -13,-13, 13,0, 5.0);
+        encoderDrive(1, 20, 20, 20, 20, 0, 3);
+        encoderDrive(1.0, 20, -20,-20, 20,0, 5.0);
         //grabberTilt.setPosition(.2);
         encoderDrive(1, -0, -0, -0, -0, -13, 3);
-        encoderDrive(1, -100.0, 100.0,100.0, -100.0, 0,10.0);
-        //grabberTilt.setPosition(.8);
+        encoderDrive(1, -95, 95,95, -95, 0,10.0);
+        encoderDrive(1, -70, 70, -70, 70, 0, 3);
         encoderDrive(1, -0, -0, -0, -0, 10, 3);
         sleep(500);
-        encoderDrive(1.0, -7, 7,-7, 7,0, 5.0);
-        encoderDrive(1.0, -50.0, -50.0,-50.0, -50.0, 0,3.0);
-        encoderDrive(1, 22,-22,-22,22, 0,3);
-        encoderDrive(1, -20, -20,-20,-20, 0,3);
-        encoderDrive(1.0, 0, 0,0, 0,-6, 5.0);
     }
 
     private void setUp() {

@@ -62,7 +62,8 @@ public class JustParkBlue extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1.0, 60, -60,-60, 60,0, 5.0);
+        encoderDrive(1, 15, 15, 15, 15, 0, 5);
+        encoderDrive(1.0, -45, 45,45, -45,0, 5.0);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
@@ -106,7 +107,7 @@ public class JustParkBlue extends LinearOpMode{
         grabber2.setPosition(.1);
         grabberTilt.setPosition(1);
 
-        telemetry.addData("Game Time", "over 9000");
+        telemetry.addData("Game Time", "Claw should be touching wall");
         telemetry.update();
 
     }

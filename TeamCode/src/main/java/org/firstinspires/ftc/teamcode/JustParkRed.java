@@ -62,8 +62,8 @@ public class JustParkRed extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1.0, -60, 60,60, -60,0, 5.0);
-        encoderDrive(1, -10, -10, -10,- 10, 0,3);
+        encoderDrive(1, -15, -15, -15, -15, 0, 5);
+        encoderDrive(1.0, -45, 45,45, -45,0, 5.0);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");

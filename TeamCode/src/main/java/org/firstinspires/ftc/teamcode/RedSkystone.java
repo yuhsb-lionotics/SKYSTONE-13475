@@ -470,7 +470,7 @@ public class RedSkystone extends LinearOpMode {
                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
             }
             jerry = jerry +1;
-            if((jerry==30000)) {
+            if((jerry==40000)) {
                 telemetry.addData("Picking up block...", 0);
                 telemetry.update();
 
@@ -479,7 +479,7 @@ public class RedSkystone extends LinearOpMode {
                 encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
                 //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
                 encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                encoderDrive(.7,5,-5,-5,5,0,5);//slow strafe right
+                encoderDrive(.7,7,-7,-7,7,0,5);//slow strafe right
                 grabber1.setPosition(.6);
                 grabber2.setPosition(.6);
                 sleep(300);

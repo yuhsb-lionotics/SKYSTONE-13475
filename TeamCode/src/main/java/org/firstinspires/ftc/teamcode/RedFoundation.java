@@ -59,16 +59,17 @@ public class RedFoundation extends LinearOpMode{
  *             case STOP:encodeDrive(0,0,0,0);
  *
  */
-        encoderDrive(1.0, 40, -40,-40, 40,8, 5.0);
+        encoderDrive(1.0, 40, -40,-40, 40, 8, 5.0);
         encoderDrive(1, -22, -22, -22, -22, 0, 3);
         encoderDrive(1.0, 13, -13,-13, 13,0, 5.0);
         encoderDrive(1, -0, -0, -0, -0, -13, 3);
+
         encoderDrive(1, -70, 70,70, -70, 0,10.0);
+        encoderDrive(1, 66, -66, 66, -66, 0, 3);
         //grabberTilt.setPosition(.8);
         encoderDrive(1, -0, -0, -0, -0, 10, 3);
         sleep(500);
-        encoderDrive(1, -7, 7, -7, 7, 0,3);
-        encoderDrive(1.0, 50.0, 50.0,50.0, 50.0, -6,3.0);
+        encoderDrive(1.0, -45.0, -45.0,-45.0, -45.0, 0,3.0);
     }
 
 
