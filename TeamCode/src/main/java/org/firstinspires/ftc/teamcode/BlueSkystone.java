@@ -107,7 +107,7 @@ public class BlueSkystone extends LinearOpMode {
     private Servo grabber2=null;
     public Servo foundation=null;
     int jerry=0;
-    boolean right = false;
+    boolean blockChosen = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -350,21 +350,18 @@ public class BlueSkystone extends LinearOpMode {
         setUp();
         waitForStart();
 
-
         //----------------------------------------------------------------------------------------------------------------------------
 
-
-        // Note: To use the remote camera preview:
-        // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
-        // Tap the preview window to receive a fresh image.
 
         encoderDrive(1,18,18,18,18 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
-            boolean isYgood = false;
-            boolean isXgood = false;
+            jerry = jerry +1;
+            if((jerry==50000)||(jerry==100000)){
+                //move over
+            }
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -388,140 +385,119 @@ public class BlueSkystone extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
-            String positionSkystone = "";
-            if (targetVisible) {
-                // express position (translation) of robot in inches.
-                VectorF translation = lastLocation.getTranslation(); /*
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
+
+                    if (targetVisible) {//every 40,000 jerrys, line up if visible
+                        // express position (translation) of robot in inches.
+                        VectorF translation = lastLocation.getTranslation(); /*
+                        telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                                translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values */
+
+                        double xPosition = translation.get(0) / mmPerInch;
+                        double yPosition = translation.get(1)/ mmPerInch;
+
+                        //Change in X
+
+                        if ((xPosition <= -11)&&(xPosition >= -18)) { //middle
+                            telemetry.addData("no motion",0);
+                            telemetry.update();
+
+                        } else {
+                            double xDistanceRide = xPosition + 15;
+                            encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide,0, 1);
+                        }
+
+                        //Change in Y
+                        double yDistanceRide = yPosition;//redundant
+
+                        if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
+                            telemetry.addData("no motion",1);
+                            telemetry.update();
+                           
+                        } else if (yPosition <= -.5) { //move left
+                            encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
+                            telemetry.addData("move left",1);
+                            telemetry.update();
+                        } else if (yPosition > .5){ // move right
+                            // encoderDrive(1,1,-1,-1,1,3);
+                            encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
+                            telemetry.addData("move right",1);
+                            telemetry.update();
+                        }
+
+                        // express the rotation of the robot in degrees.
+                        // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+                        // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
+                        /*So this code is within the target visible condition. Remember this
+                         *We assume that after x amount of jerrys, we would have either found the block or not.
+                         *lets say we find block and align after 40,000 but less than 50,000 jerrys.
+                         * In that case, we execute some commands and leave the loop so we can focus on broader movments
+                         * Outside this loop, there are if statments that cause the robot to move to the next block to scan if target is not visible
+                         * remeber that once we choose a block, we do not retunrn to this loop nor does it continue scanning
+                         */
+
+                        if((jerry<50000)&&(jerry>40000)){
+                            //block 1
+                            blockChosen=true;
+                            break;
+                        }else if((jerry<100000)&&(jerry>50000)){
+                            //block 2
+                            blockChosen=true;
+                            break;
+                        }else if(jerry>100001){
+                            //block 3
+                            blockChosen=true;
+
+                            break;
+                        }
+                    }
 
 
 
-                double xPosition = translation.get(0) / mmPerInch;
-                double yPosition = translation.get(1)/ mmPerInch;
-//                    telemetry.addData("xPosition", xPosition);
-//                    telemetry.update();
-//                    telemetry.addData("yPosition", yPosition);
-//                    telemetry.update();
 
-                //Change in X
-
-                if ((xPosition <= -11)&&(xPosition >= -18)) { //middle
-                    telemetry.addData("no motion",0);
+                if(blockChosen) {
+                    telemetry.addData("Picking up...", 0);
                     telemetry.update();
-                    isXgood=true;
 
+                    grabber1.setPosition(.3);
+                    grabber2.setPosition(.3);
+                   //this line is cursed
+                    encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
+                    //encoderDrive(1, 1, 1, 1, 1,0, 5);
+                    encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
+                    encoderDrive(.5,7,-7,-7,7,0,5);//slow strafe right
+                    grabber1.setPosition(.6);
+                    grabber2.setPosition(.6);
+                    sleep(300);
+                    encoderDrive(1,-20,20,20,-20,16,3);//strafe left was .5 12
+                    encoderDrive(1,55,55,55,55,0,5);
+                    grabber1.setPosition(.3);
+                    grabber2.setPosition(.3);
+                    encoderDrive(1,-83,-83,-83,-83,-16,5);
 
-                } else {
-                    double xDistanceRide = xPosition + 15;
-                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide,0, 1);
-                }
+                    //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
 
-
-
-
-                //Change in Y
-                double yDistanceRide = yPosition;
-                if(yPosition<=-20.0){
-                    right=true;
-                    telemetry.addData("block is right","");
-                    telemetry.update();
-                    sleep(2000);
-                }
-                if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
-                    telemetry.addData("no motion",1);
-                    telemetry.update();
-                    isYgood=true;
-
-
-
-                }
-
-                else if (yPosition <= -.5) { //move left
-                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
-                    telemetry.addData("move left",1);
-                    telemetry.update();
-                }
-                else if (yPosition > .5){ // move right
-                    // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
-                    telemetry.addData("move right",1);
-                    telemetry.update();
-                }
-
-//
-//                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
-//                    telemetry.addData("no motion",1);
-//                    telemetry.update();
-//                } else {
-//
-//                    encoderDrive(1, yDistanceRide, yDistanceRide, yDistanceRide, yDistanceRide, 1);
 //                }
+//                if(jerry==40000){
+                    encoderDrive(1 ,18,-18,-18,18,0,5);//strafe right was .7
+                    encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
+                    grabber1.setPosition(.6);
+                    grabber2.setPosition(.6);
 
-
-
-
-
-
-                // express the rotation of the robot in degrees.
-                // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-            }
-            jerry = jerry +1;
-            if(jerry==40000) {
-                telemetry.addData("Picking up...", 0);
-                telemetry.update();
-
-                grabber1.setPosition(.3);
-                grabber2.setPosition(.3);
-               //this line is cursed
-                encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                //encoderDrive(1, 1, 1, 1, 1,0, 5);
-                encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                encoderDrive(.5,7,-7,-7,7,0,5);//slow strafe right
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
-                sleep(300);
-                encoderDrive(1,-20,20,20,-20,16,3);//strafe left was .5 12
-                encoderDrive(1,55,55,55,55,0,5);
-                grabber1.setPosition(.3);
-                grabber2.setPosition(.3);
-                encoderDrive(1,-83,-83,-83,-83,-16,5);
-
-                //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
-
-            }
-            if(jerry==40000){
-                encoderDrive(1 ,18,-18,-18,18,0,5);//strafe right was .7
-                encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
-
-                sleep(300);
-                encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
-                encoderDrive(1,85,85,85,85,0,5);
-                grabber1.setPosition(.1);
-                grabber2.setPosition(.1);
-                encoderDrive(1,-25,-25,-25,-25,-16,3);//strafe left
-                sleep(5000);
-            }
-            /*else {
-                positionSkystone = "right";
-                telemetry.addData("Visible Target", "none");
-            }*/
-            //telemetry.addData("Skystone Position", positionSkystone);
-            //telemetry.update();
+                    sleep(300);
+                    encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
+                    encoderDrive(1,85,85,85,85,0,5);
+                    grabber1.setPosition(.1);
+                    grabber2.setPosition(.1);
+                    encoderDrive(1,-25,-25,-25,-25,-16,3);//strafe left
+                    sleep(5000);
+                }
 
         }
 
 
 
-        // Disable Tracking when we are done;
-        //targetsSkyStone.deactivate();
 
-        //encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
     }
 
     private void align(){
