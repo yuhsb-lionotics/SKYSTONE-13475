@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Just Park Blue Foundation", group ="Autonomous")
-public class JustParkBlue extends LinearOpMode{
+@Autonomous(name="BS/RF Park Against Wall", group ="Autonomous")
+public class BS_RFParkWall extends LinearOpMode{
 
     //The following are addition made by your's truly:
     private DcMotor FR = null;
@@ -62,8 +62,8 @@ public class JustParkBlue extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1, 15, 15, 15, 15, 0, 5);
-        encoderDrive(1.0, -45, 45,45, -45,0, 5.0);
+        sleep(25000);
+        encoderDrive(1, 18, 18, 18, 18, 0, 5);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
@@ -107,7 +107,7 @@ public class JustParkBlue extends LinearOpMode{
         grabber2.setPosition(.1);
         grabberTilt.setPosition(1);
 
-        telemetry.addData("Game Time", "Claw should be touching wall");
+        telemetry.addData("Game Time", "Yee");
         telemetry.update();
 
     }

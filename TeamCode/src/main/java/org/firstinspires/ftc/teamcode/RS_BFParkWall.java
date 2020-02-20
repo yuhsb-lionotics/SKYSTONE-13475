@@ -18,8 +18,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * The code is structured as a LinearOpMode
  */
 
-@Autonomous(name="Just Park Red Foundation", group ="Autonomous")
-public class JustParkRed extends LinearOpMode{
+@Autonomous(name="RS/BF Park Against Wall", group ="Autonomous")
+public class RS_BFParkWall extends LinearOpMode{
 
     //The following are addition made by your's truly:
     private DcMotor FR = null;
@@ -62,8 +62,8 @@ public class JustParkRed extends LinearOpMode{
  */
 
         //CODE GOES HERE- THANK YOU FOR THE INDICATION:
-        encoderDrive(1, -15, -15, -15, -15, 0, 5);
-        encoderDrive(1.0, -45, 45,45, -45,0, 5.0);
+        sleep(25000);
+        encoderDrive(1.0, -18, -18,-18, -18,0, 5.0);
     }
     private void setUp() {
         FR = hardwareMap.get(DcMotor.class, "fr");
