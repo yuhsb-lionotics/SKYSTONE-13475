@@ -107,11 +107,12 @@ public class BlueSkystone extends LinearOpMode {
     private Servo grabber2=null;
     public Servo foundation=null;
     int jerry=0;
+    int saphira  =0;
     boolean blockChosen = false;
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1220;    // listen up. our motors are really 1440 but i coded with 1220. change it to 1440 in the future
+    static final double COUNTS_PER_MOTOR_REV = 1440;
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -353,14 +354,14 @@ public class BlueSkystone extends LinearOpMode {
         //----------------------------------------------------------------------------------------------------------------------------
 
 
-        encoderDrive(1,18,18,18,18 ,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,19,19,19,19 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
             jerry = jerry +1;
             if((jerry==50000)||(jerry==100000)){
-                //move over
+                encoderDrive(1,10,-10,-10,10,0,5);
             }
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -386,7 +387,8 @@ public class BlueSkystone extends LinearOpMode {
             }
 
 
-                    if (targetVisible) {//every 40,000 jerrys, line up if visible
+                    if (targetVisible) {
+                        saphira++;
                         // express position (translation) of robot in inches.
                         VectorF translation = lastLocation.getTranslation(); /*
                         telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
@@ -435,63 +437,84 @@ public class BlueSkystone extends LinearOpMode {
                          * Outside this loop, there are if statments that cause the robot to move to the next block to scan if target is not visible
                          * remeber that once we choose a block, we do not retunrn to this loop nor does it continue scanning
                          */
+                        if(saphira>=5) {
+                            if ((jerry < 50000) && (jerry > 20000)) {
+                                //block 1
+                                blockChosen = true;
+                                telemetry.addData("block found", 1);
+                                telemetry.addData("Jerry: ",jerry);
+                                telemetry.update();
+                                sleep(1000);
 
-                        if((jerry<50000)&&(jerry>40000)){
-                            //block 1
-                            blockChosen=true;
-                            break;
-                        }else if((jerry<100000)&&(jerry>50000)){
-                            //block 2
-                            blockChosen=true;
-                            break;
-                        }else if(jerry>100001){
-                            //block 3
-                            blockChosen=true;
 
-                            break;
+                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(1, -16, 16, -16, 16, 0, 5);
+                                encoderDrive(1, 45, 45, 45, 45, 0, 5);
+                                //release
+                                encoderDrive(1,-70,-70,-70,-70,-0,5);
+                                encoderDrive(1, 15, -15, 15, -15, 0, 5);
+                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                                encoderDrive(1,70,70,70,70,-0,5);
+                                //release
+                                targetsSkyStone.deactivate();
+
+                            } else if ((jerry < 100000) && (jerry > 50000)) {
+                                //block 2
+                                blockChosen = true;
+
+                                telemetry.addData("block found", 2);
+                                telemetry.addData("Jerry: ",jerry);
+                                telemetry.update();
+                                sleep(1000);
+                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                                encoderDrive(1, 55, 55, 55, 55, 0, 5); // this is distances from the block relative to first one
+                                //release
+                                encoderDrive(1,-78,-78,-78,-78,-0,5);
+                                encoderDrive(1, 15, -15, 15, -15, 0, 5);
+                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                                encoderDrive(1,78,78,78,78,-0,5);
+                                //release
+                                encoderDrive(1,-16,-16,-16,-16,0,0);
+                                targetsSkyStone.deactivate();
+                            } else if (jerry > 100001) {
+                                //block 3
+                                blockChosen = true;
+                                telemetry.addData("block found", 3);
+                                telemetry.addData("Jerry: ",jerry);
+                                telemetry.update();
+                                sleep(1000);
+                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                                encoderDrive(1, 65, 65, 65, 65, 0, 5);//ditto (ln~453)
+                                //release
+                                encoderDrive(1,-80,-80,-80,-80,-0,5);
+                                encoderDrive(1, 15, -15, 15, -15, 0, 5);
+                                encoderDrive(.5,8,-8,-8,8,0,5);
+                                encoderDrive(1, 7, 7, 7, 7, 0, 5);
+                                //grab
+                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                                encoderDrive(.5,-8,8,8,-8,0,5);
+                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                                encoderDrive(1,80,80,80,80,-0,5);
+                                //release
+                                encoderDrive(1,-16,-16,-16,-16,0,0);
+                                targetsSkyStone.deactivate();
+                            }
                         }
                     }
-
-
-
-
-                if(blockChosen) {
-                    telemetry.addData("Picking up...", 0);
-                    telemetry.update();
-
-                    grabber1.setPosition(.3);
-                    grabber2.setPosition(.3);
-                   //this line is cursed
-                    encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                    //encoderDrive(1, 1, 1, 1, 1,0, 5);
-                    encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                    encoderDrive(.5,7,-7,-7,7,0,5);//slow strafe right
-                    grabber1.setPosition(.6);
-                    grabber2.setPosition(.6);
-                    sleep(300);
-                    encoderDrive(1,-20,20,20,-20,16,3);//strafe left was .5 12
-                    encoderDrive(1,55,55,55,55,0,5);
-                    grabber1.setPosition(.3);
-                    grabber2.setPosition(.3);
-                    encoderDrive(1,-83,-83,-83,-83,-16,5);
-
-                    //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
-
-//                }
-//                if(jerry==40000){
-                    encoderDrive(1 ,18,-18,-18,18,0,5);//strafe right was .7
-                    encoderDrive(.5 ,10,-10,-10,10,0,5);//strafe right was .7
-                    grabber1.setPosition(.6);
-                    grabber2.setPosition(.6);
-
-                    sleep(300);
-                    encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
-                    encoderDrive(1,85,85,85,85,0,5);
-                    grabber1.setPosition(.1);
-                    grabber2.setPosition(.1);
-                    encoderDrive(1,-25,-25,-25,-25,-16,3);//strafe left
-                    sleep(5000);
-                }
 
         }
 
@@ -500,9 +523,6 @@ public class BlueSkystone extends LinearOpMode {
 
     }
 
-    private void align(){
-
-    }
     private void setUp() {
 
         FR = hardwareMap.get(DcMotor.class, "fr");
@@ -538,8 +558,8 @@ public class BlueSkystone extends LinearOpMode {
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         foundation.setPosition(1);
-        grabber1.setPosition(.01);
-        grabber2.setPosition(.01);
+        grabber1.setPosition(.1);
+        grabber2.setPosition(.1);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();

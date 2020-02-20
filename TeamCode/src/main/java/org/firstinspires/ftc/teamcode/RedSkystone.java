@@ -111,10 +111,10 @@ public class RedSkystone extends LinearOpMode {
     public Servo foundation=null;
 
     int jerry=0;
-
+    boolean blockChosen = false;
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
+    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: NeveRest Motor Encoder
     static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
@@ -359,19 +359,15 @@ public class RedSkystone extends LinearOpMode {
 
 
         //----------------------------------------------------------------------------------------------------------------------------
-
-
-        // Note: To use the remote camera preview:
-        // AFTER you hit Init on the Driver Station, use the "options menu" to select "Camera Stream"
-        // Tap the preview window to receive a fresh image.
-
-        encoderDrive(1,19,19,19,19,0,3);//move forward 18" to left hand sampling
+        encoderDrive(1,18,18,18,18 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
-            boolean isYgood = false;
-            boolean isXgood = false;
+            jerry = jerry +1;
+            if((jerry==50000)||(jerry==100000)){
+                encoderDrive(1,10,-10,-10,10,0,5);
+            }
 
             // check all the trackable targets to see which one (if any) is visible.
             targetVisible = false;
@@ -395,82 +391,85 @@ public class RedSkystone extends LinearOpMode {
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
-            String positionSkystone = "";//ignore
-            if (targetVisible) {
+
+            if (targetVisible) {//every 40,000 jerrys, line up if visible
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation(); /*
-                telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
-                        translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values? */
+                        telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
+                                translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch); //these are the xyz values */
 
-
-
-                    double xPosition = translation.get(0) / mmPerInch;
-                    double yPosition = translation.get(1)/ mmPerInch;
-//                    telemetry.addData("xPosition", xPosition);
-//                    telemetry.update();
-//                    telemetry.addData("yPosition", yPosition);
-//                    telemetry.update();
+                double xPosition = translation.get(0) / mmPerInch;
+                double yPosition = translation.get(1)/ mmPerInch;
 
                 //Change in X
 
                 if ((xPosition <= -11)&&(xPosition >= -18)) { //middle
                     telemetry.addData("no motion",0);
                     telemetry.update();
-                    isXgood=true;
-
 
                 } else {
                     double xDistanceRide = xPosition + 15;
-                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide, 0,1);
+                    encoderDrive(.7, -xDistanceRide, -xDistanceRide, -xDistanceRide, -xDistanceRide,0, 1);
                 }
 
-
-
-
                 //Change in Y
-                double yDistanceRide = yPosition;
+                double yDistanceRide = yPosition;//redundant
+
                 if((yPosition <= -4)&&(yPosition >= 4)) { //no motion
                     telemetry.addData("no motion",1);
                     telemetry.update();
-                    isYgood=true;
 
-
-
-                }
-
-                else if (yPosition <= -.5) { //move left
-                   // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
+                } else if (yPosition <= -.5) { //move left
+                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
                     telemetry.addData("move left",1);
                     telemetry.update();
-                }
-                else if (yPosition > .5){ // move right
-                   // encoderDrive(1,1,-1,-1,1,3);
-                    encoderDrive(1, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide,0, 5);
+                } else if (yPosition > .5){ // move right
+                    // encoderDrive(1,1,-1,-1,1,3);
+                    encoderDrive(.5, yDistanceRide, -yDistanceRide, -yDistanceRide, yDistanceRide, 0,5);
                     telemetry.addData("move right",1);
                     telemetry.update();
                 }
 
-//
-//                if((yPosition <= -.5)&&(yPosition >= .5)) { //no motion
-//                    telemetry.addData("no motion",1);
-//                    telemetry.update();
-//                } else {
-//
-//                    encoderDrive(1, yDistanceRide, yDistanceRide, yDistanceRide, yDistanceRide, 1);
-//                }
-
-
-
-
-
                 // express the rotation of the robot in degrees.
-               // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
-               // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+                // Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
+                // telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
+                /*So this code is within the target visible condition. Remember this
+                 *We assume that after x amount of jerrys, we would have either found the block or not.
+                 *lets say we find block and align after 40,000 but less than 50,000 jerrys.
+                 * In that case, we execute some commands and leave the loop so we can focus on broader movments
+                 * Outside this loop, there are if statments that cause the robot to move to the next block to scan if target is not visible
+                 * remeber that once we choose a block, we do not retunrn to this loop nor does it continue scanning
+                 */
+
+                if((jerry<50000)&&(jerry>40000)){
+                    //block 1
+                    blockChosen=true;
+                    telemetry.addData("block found", 1);
+                    telemetry.update();
+                    sleep(1000);
+
+                }else if((jerry<100000)&&(jerry>50000)){
+                    //block 2
+                    blockChosen=true;
+                    telemetry.addData("block found", 2);
+                    telemetry.update();
+                    sleep(1000);
+
+                }else if(jerry>100001){
+                    //block 3
+                    blockChosen=true;
+                    telemetry.addData("block found", 3);
+                    telemetry.update();
+                    sleep(1000);
+
+                }
             }
-            jerry = jerry +1;
-            if((jerry==40000)) {
+
+
+
+
+            if(blockChosen) {
                 telemetry.addData("Picking up block...", 0);
                 telemetry.update();
 
