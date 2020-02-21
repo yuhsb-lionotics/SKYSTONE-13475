@@ -33,6 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -105,7 +106,9 @@ public class BlueSkystone extends LinearOpMode {
     private DcMotor peretz=null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    public Servo foundation=null;
+    private Servo skystone1=null;
+    private Servo skystone2=null;
+
     int jerry=0;
     int saphira  =0;
     boolean blockChosen = false;
@@ -444,23 +447,29 @@ public class BlueSkystone extends LinearOpMode {
                                 telemetry.addData("block found", 1);
                                 telemetry.addData("Jerry: ",jerry);
                                 telemetry.update();
-                                sleep(1000);
-
+//                                sleep(1000);
 
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
+                                skystone1.setPosition(.6);
+                                sleep(1000);
+
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
                                 encoderDrive(1, -16, 16, -16, 16, 0, 5);
                                 encoderDrive(1, 45, 45, 45, 45, 0, 5);
                                 //release
+                                skystone1.setPosition(.3);
                                 encoderDrive(1,-70,-70,-70,-70,-0,5);
                                 encoderDrive(1, 15, -15, 15, -15, 0, 5);
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
+                                skystone1.setPosition(.6);
+                                sleep(1000);
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
                                 encoderDrive(1, -15, 15, -15, 15, 0, 5);
                                 encoderDrive(1,70,70,70,70,-0,5);
                                 //release
+                                skystone1.setPosition(.3);
                                 targetsSkyStone.deactivate();
 
                             } else if ((jerry < 100000) && (jerry > 50000)) {
@@ -470,7 +479,7 @@ public class BlueSkystone extends LinearOpMode {
                                 telemetry.addData("block found", 2);
                                 telemetry.addData("Jerry: ",jerry);
                                 telemetry.update();
-                                sleep(1000);
+                                //sleep(1000);
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
@@ -493,7 +502,7 @@ public class BlueSkystone extends LinearOpMode {
                                 telemetry.addData("block found", 3);
                                 telemetry.addData("Jerry: ",jerry);
                                 telemetry.update();
-                                sleep(1000);
+                                //sleep(1000);
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
@@ -532,7 +541,8 @@ public class BlueSkystone extends LinearOpMode {
         peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
-        foundation= hardwareMap.servo.get("grabber_tilt");
+        skystone1= hardwareMap.servo.get("skystone1");
+        skystone2= hardwareMap.servo.get("skystone2");
 
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -541,6 +551,9 @@ public class BlueSkystone extends LinearOpMode {
         peretz.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
+        skystone1.setDirection(Servo.Direction.FORWARD);
+        skystone2.setDirection(Servo.Direction.REVERSE);
+
 
 
 
@@ -557,7 +570,7 @@ public class BlueSkystone extends LinearOpMode {
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        foundation.setPosition(1);
+
         grabber1.setPosition(.1);
         grabber2.setPosition(.1);
 
