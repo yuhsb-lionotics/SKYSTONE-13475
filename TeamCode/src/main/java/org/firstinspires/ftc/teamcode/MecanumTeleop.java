@@ -27,7 +27,8 @@ public class MecanumTeleop extends LinearOpMode {
     protected DcMotor peretz;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    private Servo grabberTilt = null;
+    private Servo skystone1=null;
+    private Servo skystone2=null;
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -98,14 +99,16 @@ public class MecanumTeleop extends LinearOpMode {
                 motorBackLeft = hardwareMap.dcMotor.get("bl");
                 motorBackRight = hardwareMap.dcMotor.get("br");
                 peretz = hardwareMap.dcMotor.get("peretz");
+                skystone1= hardwareMap.servo.get("skystone1");
+                skystone2= hardwareMap.servo.get("skystone2");
 
                 grabber1= hardwareMap.servo.get("grabber1");
                 grabber2= hardwareMap.servo.get("grabber2");
-                grabberTilt = hardwareMap.servo.get("grabber_tilt");
                 grabber1.setDirection(Servo.Direction.FORWARD);
                 grabber2.setDirection(Servo.Direction.REVERSE);
-                grabberTilt.setDirection(Servo.Direction.FORWARD);
                 peretz.setDirection(DcMotorSimple.Direction.FORWARD);
+                skystone1.setDirection(Servo.Direction.FORWARD);
+                skystone2.setDirection(Servo.Direction.REVERSE);
 
 
                 //grabberTilt.setPosition(.8);
