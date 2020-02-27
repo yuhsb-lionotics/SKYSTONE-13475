@@ -84,6 +84,15 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber1.setPosition(.1);
                 grabber2.setPosition(.1);
             }
+            if(gamepad2.x){
+                skystone1.setPosition(.4);//open
+                skystone2.setPosition(.4);//open
+            }
+            if(gamepad2.b){
+                skystone1.setPosition(1);//close
+                skystone2.setPosition(1);//close
+            }
+
 
 
         }
@@ -108,7 +117,7 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber2.setDirection(Servo.Direction.REVERSE);
                 peretz.setDirection(DcMotorSimple.Direction.FORWARD);
                 skystone1.setDirection(Servo.Direction.FORWARD);
-                skystone2.setDirection(Servo.Direction.REVERSE);
+                skystone2.setDirection(Servo.Direction.FORWARD);
 
 
                 //grabberTilt.setPosition(.8);
