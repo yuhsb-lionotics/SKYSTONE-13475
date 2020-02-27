@@ -85,12 +85,12 @@ public class MecanumTeleop extends LinearOpMode {
                 grabber2.setPosition(.1);
             }
             if(gamepad2.x){
-                skystone1.setPosition(.4);//open
-                skystone2.setPosition(.4);//open
+                skystone1.setPosition(.4);//down
+                skystone2.setPosition(.4);//down
             }
             if(gamepad2.b){
-                skystone1.setPosition(1);//close
-                skystone2.setPosition(1);//close
+                skystone1.setPosition(1);//up
+                skystone2.setPosition(1);//up
             }
 
 

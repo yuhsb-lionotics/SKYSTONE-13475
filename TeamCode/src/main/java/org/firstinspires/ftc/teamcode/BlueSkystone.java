@@ -116,7 +116,7 @@ public class BlueSkystone extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1440;
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double DRIVE_GEAR_REDUCTION = 1;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -451,25 +451,25 @@ public class BlueSkystone extends LinearOpMode {
 
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
-                                skystone1.setPosition(.6);
+                                skystone2.setPosition(.4);
                                 sleep(1000);
 
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
                                 encoderDrive(1, -16, 16, -16, 16, 0, 5);
                                 encoderDrive(1, 45, 45, 45, 45, 0, 5);
                                 //release
-                                skystone1.setPosition(.3);
+                                skystone2.setPosition(1);
                                 encoderDrive(1,-70,-70,-70,-70,-0,5);
                                 encoderDrive(1, 15, -15, 15, -15, 0, 5);
                                 encoderDrive(1, 8, 8, 8, 8, 0, 5);
                                 //grab
-                                skystone1.setPosition(.6);
+                                skystone2.setPosition(.4);
                                 sleep(1000);
                                 encoderDrive(1, -5, -5, -5, -5, 0, 5);
                                 encoderDrive(1, -15, 15, -15, 15, 0, 5);
                                 encoderDrive(1,70,70,70,70,-0,5);
                                 //release
-                                skystone1.setPosition(.3);
+                                skystone2.setPosition(1);
                                 targetsSkyStone.deactivate();
 
                             } else if ((jerry < 100000) && (jerry > 50000)) {
@@ -571,8 +571,8 @@ public class BlueSkystone extends LinearOpMode {
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
-        grabber1.setPosition(.1);
-        grabber2.setPosition(.1);
+        grabber1.setPosition(1);
+        grabber2.setPosition(1);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
