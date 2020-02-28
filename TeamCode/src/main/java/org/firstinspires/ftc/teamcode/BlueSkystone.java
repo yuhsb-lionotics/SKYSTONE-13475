@@ -449,29 +449,32 @@ public class BlueSkystone extends LinearOpMode {
                                 telemetry.update();
 //                                sleep(1000);
 
-                                encoderDrive(1, -15, 15, 15, -15, 0, 5);
+                                encoderDrive(1, -13, 13, 13, -13, 0, 5);
                                 encoderDrive(1, 15, 15, 15, 15, 0, 5);
                                 //grab
                                 skystone2.setPosition(.4);
-                                sleep(1000);
+                                sleep(500);
 
                                 encoderDrive(1, -15, -15, -15, -15, 0, 5);
                                 encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
-                                encoderDrive(1, 45, 45, 45, 45, 0, 5);
+                                encoderDrive(1, 55, 55, 55, 55, 0, 5);
                                 //release
                                 skystone2.setPosition(1);
-                                encoderDrive(1,-70,-70,-70,-70,-0,5);
-                                encoderDrive(1, 15, -15, 15, -15, 0, 5);
-                                encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                                encoderDrive(1,-95,-95,-95,-95,0,5);
+                                encoderDrive(1, 25, -25, 25, -25, 0, 5);
+                                encoderDrive(1, 15, 15, 15, 15, 0, 5);
                                 //grab
                                 skystone2.setPosition(.4);
-                                sleep(1000);
-                                encoderDrive(1, -5, -5, -5, -5, 0, 5);
-                                encoderDrive(1, -15, 15, -15, 15, 0, 5);
-                                encoderDrive(1,70,70,70,70,-0,5);
+                                sleep(500);
+                                encoderDrive(1, -20, -20, -20, -20, 0, 5);
+                                encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
+                                encoderDrive(1,90,90,90,90,0,5);
                                 //release
                                 skystone2.setPosition(1);
+                                encoderDrive(1,5,-5,-5,5,0,5);
+                                encoderDrive(1,-15,-15,-15,-15,0,5);
                                 targetsSkyStone.deactivate();
+                                break;
 
                             } else if ((jerry < 100000) && (jerry > 50000)) {
                                 //block 2
