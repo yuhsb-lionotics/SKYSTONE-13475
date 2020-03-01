@@ -108,14 +108,17 @@ public class RedSkystone extends LinearOpMode {
     private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    public Servo foundation=null;
+    private Servo skystone1=null;
+    private Servo skystone2=null;
 
     int jerry=0;
+    int saphira  =0;
     boolean blockChosen = false;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: NeveRest Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double DRIVE_GEAR_REDUCTION = .5;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -359,7 +362,9 @@ public class RedSkystone extends LinearOpMode {
 
 
         //----------------------------------------------------------------------------------------------------------------------------
-        encoderDrive(1,18,18,18,18 ,0,3);//move forward 18" to left hand sampling
+
+
+        encoderDrive(1,28,28,28,28 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
@@ -392,7 +397,8 @@ public class RedSkystone extends LinearOpMode {
             }
 
 
-            if (targetVisible) {//every 40,000 jerrys, line up if visible
+            if (targetVisible) {
+                saphira++;
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation(); /*
                         telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
@@ -441,92 +447,106 @@ public class RedSkystone extends LinearOpMode {
                  * Outside this loop, there are if statments that cause the robot to move to the next block to scan if target is not visible
                  * remeber that once we choose a block, we do not retunrn to this loop nor does it continue scanning
                  */
+                if(saphira>=5) {
+                    if ((jerry < 50000) && (jerry > 20000)) {
+                        //block 1
+                        blockChosen = true;
+                        telemetry.addData("block found", 1);
+                        telemetry.addData("Jerry: ",jerry);
+                        telemetry.update();
+//                                sleep(1000);
 
-                if((jerry<50000)&&(jerry>40000)){
-                    //block 1
-                    blockChosen=true;
-                    telemetry.addData("block found", 1);
-                    telemetry.update();
-                    sleep(1000);
+                        encoderDrive(1, -13, 13, 13, -13, 0, 5);
+                        encoderDrive(1, 15, 15, 15, 15, 0, 5);
+                        //grab
+                        skystone2.setPosition(.4);
+                        sleep(500);
 
-                }else if((jerry<100000)&&(jerry>50000)){
-                    //block 2
-                    blockChosen=true;
-                    telemetry.addData("block found", 2);
-                    telemetry.update();
-                    sleep(1000);
+                        encoderDrive(1, -15, -15, -15, -15, 0, 5);
+                        encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
+                        encoderDrive(1, 55, 55, 55, 55, 0, 5);
+                        //release
+                        skystone2.setPosition(1);
+                        encoderDrive(1,-95,-95,-95,-95,0,5);
+                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
+                        encoderDrive(1, 15, 15, 15, 15, 0, 5);
+                        //grab
+                        skystone2.setPosition(.4);
+                        sleep(500);
+                        encoderDrive(1, -20, -20, -20, -20, 0, 5);
+                        encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
+                        encoderDrive(1,90,90,90,90,0,5);
+                        //release
+                        skystone2.setPosition(1);
+                        encoderDrive(1,5,-5,-5,5,0,5);
+                        encoderDrive(1,-15,-15,-15,-15,0,5);
+                        targetsSkyStone.deactivate();
+                        break;
 
-                }else if(jerry>100001){
-                    //block 3
-                    blockChosen=true;
-                    telemetry.addData("block found", 3);
-                    telemetry.update();
-                    sleep(1000);
+                    } else if ((jerry < 100000) && (jerry > 50000)) {
+                        //block 2
+                        blockChosen = true;
 
+                        telemetry.addData("block found", 2);
+                        telemetry.addData("Jerry: ",jerry);
+                        telemetry.update();
+                        //sleep(1000);
+                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        //grab
+                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                        encoderDrive(1, 55, 55, 55, 55, 0, 5); // this is distances from the block relative to first one
+                        //release
+                        encoderDrive(1,-78,-78,-78,-78,-0,5);
+                        encoderDrive(1, 15, -15, 15, -15, 0, 5);
+                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        //grab
+                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                        encoderDrive(1,78,78,78,78,-0,5);
+                        //release
+                        encoderDrive(1,-16,-16,-16,-16,0,0);
+                        targetsSkyStone.deactivate();
+                    } else if (jerry > 100001) {
+                        //block 3
+                        blockChosen = true;
+                        telemetry.addData("block found", 3);
+                        telemetry.addData("Jerry: ",jerry);
+                        telemetry.update();
+                        //sleep(1000);
+                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        //grab
+                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                        encoderDrive(1, 65, 65, 65, 65, 0, 5);//ditto (ln~453)
+                        //release
+                        encoderDrive(1,-80,-80,-80,-80,-0,5);
+                        encoderDrive(1, 15, -15, 15, -15, 0, 5);
+                        encoderDrive(.5,8,-8,-8,8,0,5);
+                        encoderDrive(1, 7, 7, 7, 7, 0, 5);
+                        //grab
+                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
+                        encoderDrive(.5,-8,8,8,-8,0,5);
+                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
+                        encoderDrive(1,80,80,80,80,-0,5);
+                        //release
+                        encoderDrive(1,-16,-16,-16,-16,0,0);
+                        targetsSkyStone.deactivate();
+                    }
                 }
             }
 
-
-
-
-            if(blockChosen) {
-                telemetry.addData("Picking up block...", 0);
-                telemetry.update();
-
-                grabber1.setPosition(.3);
-                grabber2.setPosition(.3);
-                encoderDrive(1, -19, 19, -19, 19,0, 5);//was .5
-                //encoderDrive(1, -1.5, -1.5, -1.5, -1.5, 0,5); //add if consistently missed grabbing block
-                encoderDrive(1,17,-17,-17,17,0,5);//strafe right was
-                encoderDrive(.7,7,-7,-7,7,0,5);//slow strafe right
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
-                sleep(300);
-                encoderDrive(1,-19,19,19,-19,16,3);//strafe left was .5
-                encoderDrive(1,-65,-65,-65,-65,0,5);
-                grabber1.setPosition(.3);
-                grabber2.setPosition(.3);
-                encoderDrive(1,95,95,95,95,-16,7);//move to 2nd block
-
-               //encoderDrive(1, 19, -19, 19, -19, 0,5); //was .5
-
-            //}
-            //if(jerry==30000){
-                encoderDrive(1,16,-16,-16,16,0,5);//strafe right was
-                encoderDrive(.7,8,-8,-8,8,0,5);//slow strafe right
-                grabber1.setPosition(.6);
-                grabber2.setPosition(.6);
-
-                sleep(300);
-                encoderDrive(1,-24,24,24,-24,16,3);//strafe left was .7
-                encoderDrive(1,-95,-95,-95,-95,0,5);
-                grabber1.setPosition(.1);
-                grabber2.setPosition(.1);
-                encoderDrive(1,20,20,20,20,-16,3);//strafe left
-                sleep(5000);
-            }
-            /*else {
-                positionSkystone = "right";
-                telemetry.addData("Visible Target", "none");
-            }*/
-            //telemetry.addData("Skystone Position", positionSkystone);
-            //telemetry.update();
-
         }
 
-        telemetry.addData("out of loop",1);
-        telemetry.update();
 
-        // Disable Tracking when we are done;
-        //targetsSkyStone.deactivate();
 
-        //encoderDrive(.5,-20,20,-20,20,0,5);//rotate left
+
     }
-
     private void align(){
 
     }
     private void setUp() {
+
         FR = hardwareMap.get(DcMotor.class, "fr");
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
@@ -534,7 +554,8 @@ public class RedSkystone extends LinearOpMode {
         peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
-        foundation= hardwareMap.servo.get("grabber_tilt");
+        skystone1= hardwareMap.servo.get("skystone1");
+        skystone2= hardwareMap.servo.get("skystone2");
 
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -543,11 +564,12 @@ public class RedSkystone extends LinearOpMode {
         peretz.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
+        skystone1.setDirection(Servo.Direction.FORWARD);
+        skystone2.setDirection(Servo.Direction.FORWARD);
 
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");
-        telemetry.update();
+
+
 
         FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -561,13 +583,14 @@ public class RedSkystone extends LinearOpMode {
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        foundation.setPosition(1);
-        grabber1.setPosition(.01);
-        grabber2.setPosition(.01);
+
+        grabber1.setPosition(1);
+        grabber2.setPosition(1);
+        skystone1.setPosition(1);
+        skystone2.setPosition(1);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
-
 
     }
 
