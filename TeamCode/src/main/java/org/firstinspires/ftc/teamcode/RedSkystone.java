@@ -105,7 +105,7 @@ public class RedSkystone extends LinearOpMode {
     private DcMotor FL = null;
     private DcMotor BL = null;
     private DcMotor BR = null;
-    private DcMotor peretz = null;
+    //private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
     private Servo skystone1=null;
@@ -364,14 +364,14 @@ public class RedSkystone extends LinearOpMode {
         //----------------------------------------------------------------------------------------------------------------------------
 
 
-        encoderDrive(1,28,28,28,28 ,0,3);//move forward 18" to left hand sampling
+        encoderDrive(.8,28,28,28,28 ,0,3);//move forward 18" to left hand sampling
 
         targetsSkyStone.activate();
 
         while (!isStopRequested()) {
             jerry = jerry +1;
             if((jerry==50000)||(jerry==100000)){
-                encoderDrive(1,10,-10,-10,10,0,5);
+                encoderDrive(.8,-20,20,20,-20,0,5);
             }
 
             // check all the trackable targets to see which one (if any) is visible.
@@ -456,30 +456,30 @@ public class RedSkystone extends LinearOpMode {
                         telemetry.update();
 //                                sleep(1000);
 
-                        encoderDrive(1, -13, 13, 13, -13, 0, 5);
-                        encoderDrive(1, 15, 15, 15, 15, 0, 5);
+                        encoderDrive(.7, 15, -15, -15, 15, 0, 5);
+                        encoderDrive(.8, 17, 17, 17, 17, 0, 5);
                         //grab
-                        skystone2.setPosition(.4);
+                        skystone1.setPosition(.35);
                         sleep(500);
 
                         encoderDrive(1, -15, -15, -15, -15, 0, 5);
-                        encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
+                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
                         encoderDrive(1, 55, 55, 55, 55, 0, 5);
                         //release
-                        skystone2.setPosition(1);
+                        skystone1.setPosition(1);
                         encoderDrive(1,-95,-95,-95,-95,0,5);
-                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
-                        encoderDrive(1, 15, 15, 15, 15, 0, 5);
+                        encoderDrive(1, -25, 25, -25, 25, 0, 5);
+                        encoderDrive(.8, 16, 16, 16, 16, 0, 5);
                         //grab
-                        skystone2.setPosition(.4);
+                        skystone1.setPosition(.35);
                         sleep(500);
                         encoderDrive(1, -20, -20, -20, -20, 0, 5);
-                        encoderDrive(1, -26.5, 26.5, -26.5, 26.5, 0, 5);
+                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
                         encoderDrive(1,90,90,90,90,0,5);
                         //release
-                        skystone2.setPosition(1);
-                        encoderDrive(1,5,-5,-5,5,0,5);
-                        encoderDrive(1,-15,-15,-15,-15,0,5);
+                        skystone1.setPosition(1);
+                        encoderDrive(1,-20,20,20,-20,0,5);
+                        encoderDrive(1,-20,-20,-20,-20,0,5);
                         targetsSkyStone.deactivate();
                         break;
 
@@ -490,48 +490,66 @@ public class RedSkystone extends LinearOpMode {
                         telemetry.addData("block found", 2);
                         telemetry.addData("Jerry: ",jerry);
                         telemetry.update();
-                        //sleep(1000);
-                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        encoderDrive(.7, 11, -11, -11, 11, 0, 5);
+                        encoderDrive(.7, 16, 16, 16, 16, 0, 5);
                         //grab
-                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
-                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
-                        encoderDrive(1, 55, 55, 55, 55, 0, 5); // this is distances from the block relative to first one
+                        skystone1.setPosition(.35);
+                        sleep(500);
+
+                        encoderDrive(1, -15, -15, -15, -15, 0, 5);
+                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
+                        encoderDrive(.8, 65, 65, 65, 65, 0, 5);
                         //release
-                        encoderDrive(1,-78,-78,-78,-78,-0,5);
-                        encoderDrive(1, 15, -15, 15, -15, 0, 5);
-                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        skystone1.setPosition(1);
+                        encoderDrive(1,-105,-105,-105,-105,0,5);
+                        encoderDrive(1, -25, 25, -25, 25, 0, 5);
+                        encoderDrive(.8, 15, 15, 15, 15, 0, 5);
                         //grab
-                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
-                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
-                        encoderDrive(1,78,78,78,78,-0,5);
+                        skystone1.setPosition(.35);
+                        sleep(500);
+                        encoderDrive(1, -20, -20, -20, -20, 0, 5);
+                        encoderDrive(1, 25, -25, 25, -25, 0, 5);
+                        encoderDrive(1,100,100,100,100,0,5);
                         //release
-                        encoderDrive(1,-16,-16,-16,-16,0,0);
+                        skystone1.setPosition(1);
+                        encoderDrive(1,-20,20,20,-20,0,5);
+                        encoderDrive(1,-20,-20,-20,-20,0,5);
                         targetsSkyStone.deactivate();
+                        break;
                     } else if (jerry > 100001) {
                         //block 3
                         blockChosen = true;
                         telemetry.addData("block found", 3);
                         telemetry.addData("Jerry: ",jerry);
                         telemetry.update();
-                        //sleep(1000);
-                        encoderDrive(1, 8, 8, 8, 8, 0, 5);
+                        encoderDrive(.7, 8, -8, -8, 8, 0, 5);
+                        encoderDrive(.7, 16, 16, 16, 16, 0, 5);
                         //grab
-                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
-                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
-                        encoderDrive(1, 65, 65, 65, 65, 0, 5);//ditto (ln~453)
+                        skystone1.setPosition(.35);
+                        sleep(500);
+
+                        encoderDrive(.8, -15, -15, -15, -15, 0, 5);
+                        encoderDrive(1, 23.5, -23.5, 23.5, -23.5, 0, 5);
+                        encoderDrive(.8, 80, 80, 80, 80, 0, 5);
                         //release
-                        encoderDrive(1,-80,-80,-80,-80,-0,5);
-                        encoderDrive(1, 15, -15, 15, -15, 0, 5);
-                        encoderDrive(.5,8,-8,-8,8,0,5);
-                        encoderDrive(1, 7, 7, 7, 7, 0, 5);
+                        skystone1.setPosition(1);
+                        encoderDrive(1,-100,-100,-100,-100,0,5);
+                        encoderDrive(1, -24.5, 24.5, -24.5, 24.5, 0, 5);
+                        encoderDrive(1,-10,-10,-10,-10,0,5);
+                        encoderDrive(1, -35, 35, 35, -35, 0, 5);
+                        encoderDrive(.8, 5, 5, 5, 5, 0, 5);
                         //grab
-                        encoderDrive(1, -5, -5, -5, -5, 0, 5);
-                        encoderDrive(.5,-8,8,8,-8,0,5);
-                        encoderDrive(1, -15, 15, -15, 15, 0, 5);
-                        encoderDrive(1,80,80,80,80,-0,5);
+                        skystone1.setPosition(.35);
+                        sleep(500);
+                        encoderDrive(1, -20, -20, -20, -20, 0, 5);
+                        encoderDrive(1, 28, -28, 28, -28, 0, 5);
+                        encoderDrive(1,115,115,115,115,0,5);
                         //release
-                        encoderDrive(1,-16,-16,-16,-16,0,0);
+                        skystone1.setPosition(1);
+                        encoderDrive(1,-20,20,20,-20,0,5);
+                        encoderDrive(1,-20,-20,-20,-20,0,5);
                         targetsSkyStone.deactivate();
+                        break;
                     }
                 }
             }
@@ -551,7 +569,7 @@ public class RedSkystone extends LinearOpMode {
         FL = hardwareMap.get(DcMotor.class, "fl");
         BR = hardwareMap.get(DcMotor.class, "br");
         BL = hardwareMap.get(DcMotor.class, "bl");
-        peretz = hardwareMap.get(DcMotor.class, "peretz");
+        //peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
         skystone1= hardwareMap.servo.get("skystone1");
@@ -561,7 +579,7 @@ public class RedSkystone extends LinearOpMode {
         FL.setDirection(DcMotor.Direction.REVERSE);
         BL.setDirection(DcMotor.Direction.REVERSE);
         BR.setDirection(DcMotor.Direction.FORWARD);
-        peretz.setDirection(DcMotor.Direction.FORWARD);
+        //peretz.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
         skystone1.setDirection(Servo.Direction.FORWARD);
@@ -575,13 +593,13 @@ public class RedSkystone extends LinearOpMode {
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        peretz.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //peretz.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         grabber1.setPosition(1);
@@ -601,7 +619,7 @@ public class RedSkystone extends LinearOpMode {
         int newFRTarget;
         int newBLTarget;
         int newBRTarget;
-        int newPeretzTarget;
+        //int newPeretzTarget;
 
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
@@ -611,20 +629,20 @@ public class RedSkystone extends LinearOpMode {
             newFRTarget = FR.getCurrentPosition() + (int) (FRin * COUNTS_PER_INCH);
             newBLTarget = BL.getCurrentPosition() + (int) (BLin * COUNTS_PER_INCH);
             newBRTarget = BR.getCurrentPosition() + (int) (BRin * COUNTS_PER_INCH);
-            newPeretzTarget = peretz.getCurrentPosition() + (int) (peretzz*COUNTS_PER_INCH);
+            //newPeretzTarget = peretz.getCurrentPosition() + (int) (peretzz*COUNTS_PER_INCH);
 
             FR.setTargetPosition(newFRTarget);
             FL.setTargetPosition(newFLTarget);
             BL.setTargetPosition(newBLTarget);
             BR.setTargetPosition(newBRTarget);
-            peretz.setTargetPosition(newPeretzTarget);
+            //peretz.setTargetPosition(newPeretzTarget);
 
             // Turn On RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             FL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             BR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            //peretz.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             // reset the timeout time and start motion.
             runtime.reset();
@@ -632,7 +650,7 @@ public class RedSkystone extends LinearOpMode {
             FL.setPower(Math.abs(speed));
             BL.setPower(Math.abs(speed));
             BR.setPower(Math.abs(speed));
-            peretz.setPower(Math.abs(speed));
+            //peretz.setPower(Math.abs(speed));
 
             // keep looping while we are still active, and there is time left, and both motors are running.
             // Note: We use (isBusy() && isBusy()) in the loop test, which means that when EITHER motor hits
@@ -642,7 +660,7 @@ public class RedSkystone extends LinearOpMode {
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() &&
                     (runtime.seconds() < timeoutS) &&
-                    ((FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())||peretz.isBusy())) {
+                    ((FR.isBusy() && FL.isBusy() && BL.isBusy() && BR.isBusy())/*||peretz.isBusy()*/)) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d :%7d", newFLTarget, newFRTarget, newBLTarget, newFLTarget);
@@ -659,14 +677,14 @@ public class RedSkystone extends LinearOpMode {
             FL.setPower(0);
             BL.setPower(0);
             BR.setPower(0);
-            peretz.setPower(0);
+            //peretz.setPower(0);
 
             // Turn off RUN_TO_POSITION
             FR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             FL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            //peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         }
     }
 
