@@ -9,13 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 /**
- *
- * Created (- VuForia) by Zack 9/23/19
- *
- *
- * This 2019-2020 OpMode illustrates the basics of using the Vuforia localizer to determine
- * positioning and orientation of robot on the SKYSTONE FTC field.
- * The code is structured as a LinearOpMode
+ * Created by Moshe Inger for FTC Skystone 2019-2020
  */
 
 @Autonomous(name="Blue Foundation", group ="Autonomous")
@@ -29,13 +23,14 @@ public class BlueFoundation extends LinearOpMode{
     private DcMotor peretz = null;
     private Servo grabber1=null;
     private Servo grabber2=null;
-    private Servo grabberTilt=null;
+    private Servo skystone1=null;
+    private Servo skystone2=null;
 
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    static final double COUNTS_PER_MOTOR_REV = 1220;    // eg: TETRIX Motor Encoder
-    static final double DRIVE_GEAR_REDUCTION = 1.0;     // This is < 1.0 if geared UP
+    static final double COUNTS_PER_MOTOR_REV = 1440;    // eg: neverest Motor Encoder
+    static final double DRIVE_GEAR_REDUCTION = .5;     // This is < 1.0 if geared UP
     static final double WHEEL_DIAMETER_INCHES = 4.0;     // For figuring circumference
     static final double COUNTS_PER_INCH = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
             (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -81,9 +76,8 @@ public class BlueFoundation extends LinearOpMode{
         peretz = hardwareMap.get(DcMotor.class, "peretz");
         grabber1= hardwareMap.servo.get("grabber1");
         grabber2= hardwareMap.servo.get("grabber2");
-       grabberTilt= hardwareMap.servo.get("grabber_tilt");
-
-
+        skystone1= hardwareMap.servo.get("skystone1");
+        skystone2= hardwareMap.servo.get("skystone2");
 
         FR.setDirection(DcMotor.Direction.FORWARD);
         FL.setDirection(DcMotor.Direction.REVERSE);
@@ -92,11 +86,8 @@ public class BlueFoundation extends LinearOpMode{
         peretz.setDirection(DcMotor.Direction.FORWARD);
         grabber1.setDirection(Servo.Direction.FORWARD);
         grabber2.setDirection(Servo.Direction.REVERSE);
-
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Status", "Resetting Encoders");
-        telemetry.update();
+        skystone1.setDirection(Servo.Direction.FORWARD);
+        skystone2.setDirection(Servo.Direction.FORWARD);
 
         FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -110,14 +101,13 @@ public class BlueFoundation extends LinearOpMode{
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-
-        grabber1.setPosition(.1);
-        grabber2.setPosition(.1);
-        grabberTilt.setPosition(1);
+        grabber1.setPosition(1);
+        grabber2.setPosition(1);
+        skystone1.setPosition(1);
+        skystone2.setPosition(1);
 
         telemetry.addData("Game Time", "over 9000");
         telemetry.update();
-
     }
 
     public void encoderDrive(double speed,

@@ -553,12 +553,7 @@ public class RedSkystone extends LinearOpMode {
                     }
                 }
             }
-
         }
-
-
-
-
     }
     private void align(){
 
@@ -585,10 +580,6 @@ public class RedSkystone extends LinearOpMode {
         skystone1.setDirection(Servo.Direction.FORWARD);
         skystone2.setDirection(Servo.Direction.FORWARD);
 
-
-
-
-
         FR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -600,7 +591,6 @@ public class RedSkystone extends LinearOpMode {
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         //peretz.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
 
         grabber1.setPosition(1);
         grabber2.setPosition(1);

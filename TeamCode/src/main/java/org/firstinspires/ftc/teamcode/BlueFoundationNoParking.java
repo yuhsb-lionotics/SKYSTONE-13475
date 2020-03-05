@@ -19,6 +19,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 
 @Autonomous(name="Blue Foundation No Park", group ="Autonomous")
+@Disabled
 public class BlueFoundationNoParking extends LinearOpMode{
 
     //The following are addition made by your's truly:
